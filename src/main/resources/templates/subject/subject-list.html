@@ -1,0 +1,14 @@
+<script th:src="@{/js/subject/subject.js}"></script>
+<table id="subjectlist" class="easyui-datagrid" title="科目列表" style="width: auto;height:auto;"
+        data-options="rownumbers:true,singleSelect:true,url:'/web/subject/viewlist',method:'get',toolbar:subject.toolbar">
+<!--<table id="subjectlist" class="easyui-datagrid" title="科目列表" style="width: 1000px;height:500px;"-->
+        <!--data-options="rownumbers:true,singleSelect:true,url:'/subject/viewlist',method:'get',toolbar:subject.toolbar">-->
+    <thead>
+    <tr>
+        <th data-options="field:'subjectid',width:80">科目编码</th>
+        <th data-options="field:'subjectname',width:150">科目名称</th>
+        <th data-options="field:'mstatus',width:100,formatter:baseutil.formatter_status">用户状态</th>
+        <th data-options="field:'createtime',width:120">时间</th>
+    </tr>
+    </thead>
+</table>

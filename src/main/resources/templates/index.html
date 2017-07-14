@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      >
+    <head>
+        <title>软考管理系统</title>
+
+        <link rel="stylesheet"  th:href="@{/jquery-easyui-1.5.2/themes/default/easyui.css}" />
+        <link rel="stylesheet"  th:href="@{/jquery-easyui-1.5.2/themes/icon.css}" />
+        <link rel="stylesheet"  th:href="@{/jquery-easyui-1.5.2/themes/color.css}" />
+
+        <script th:src="@{/jquery-easyui-1.5.2/jquery.min.js}"></script>
+        <script th:src="@{/jquery-easyui-1.5.2/jquery.easyui.min.js}"></script>
+
+    </head>
+    <body>
+    <div id ="index_div" style="margin-top:100px;margin-left:100px;">
+        <div class="easyui-panel" title="用户登录" style="width:400px;">
+            <div style="padding:10px 0 10px 60px">
+                <form id="indexForm" method="post" action="/sys/dologin">
+                    <table>
+                        <tr>
+                            <td>登录用户名:</td>
+                            <td><input class="easyui-validatebox" type="text" name="usertel" data-options="required:true"></input></td>
+                        </tr>
+                        <tr>
+                            <td>登录密码:</td>
+                            <td>
+                                <input type="password"  name="userpassword"  /></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="indexForm_sub()">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="indexForm_clear()">重置</a>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        function indexForm_sub()
+        {
+            if($("input[name=usertel]").val() == null || $("input[name=usertel]").val() == '')
+            {
+                $.messager.alert('提示','请填写登录用户名称！');
+                $("input[name=usertel]").focus();
+                return false;
+            }
+            if($("input[name=userpassword]").val() == null || $("input[name=userpassword]").val() == '')
+            {
+                $.messager.alert('提示','请填写登录用户密码！');
+                $("input[name=userpassword]").focus();
+                return false;
+            }
+            $('#indexForm').submit();
+        };
+
+        function indexForm_clear(){
+            var formObj  = document.getElementById("indexForm");
+            formObj.userName.value='';
+            formObj.userPassword.value='';
+        };
+    </script>
+    </body>
+</html>

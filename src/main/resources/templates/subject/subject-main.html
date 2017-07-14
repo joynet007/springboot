@@ -1,0 +1,9 @@
+<script th:src="@{/js/subject/subjecttree.js}"></script>
+<script th:src="@{/js/subject/subject.js}"></script>
+<div class="easyui-layout" style="width:100%;height:100%;">
+    <div data-options="region:'west',split:true" title="" style="width:180px;">
+        <ul class="easyui-tree" id="subject-tree" data-options="url:'/web/subject/subject-trees',method:'get'"></ul>
+    </div>
+
+    <div id="subject-tree-panel"  data-options="region:'center'"   style="width:100%;height:100%"></div>
+</div>

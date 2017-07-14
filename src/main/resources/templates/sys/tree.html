@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<script th:src="@{/js/sys/sys.js}"></script>
+<body>
+<div th:fragment="sys-tree">
+    <ul class="easyui-tree" id="sys-tree" >
+        <li>
+            <span>权限管理</span>
+            <ul class="sysmanager" id="sysmanager">
+                <li id="sysuserinfo"><span>用户管理</span></li>
+                <li id="auuser"><span>用户管理</span></li>
+            </ul>
+        </li>
+        <li>
+            <span>系统管理</span>
+            <ul>
+                <li data-options="state:'closed'">
+                    <span>基础数据管理</span>
+                    <ul class="sysmanager" id="sysmanager">
+                        <li id="subject"><span>科目管理</span></li>
+                        <li id="choicequestion"><span>题目管理</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><span>个人信息</span></li>
+        <li><span>修改密码</span></li>
+        <li id="dologout"><span>安全退出</span></li>
+    </ul>
+</div>
+</body>
+</html>

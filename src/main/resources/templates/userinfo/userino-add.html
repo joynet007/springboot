@@ -1,0 +1,89 @@
+<form id="userinfoAddForm" method="post" action= "/userinfo/createuserinfo" >
+    <table>
+        <tr>
+            <td>用户手机：</td>
+            <td><input class="easyui-validatebox" type="text" name="usertel" data-options="required:true"  value=""></input></td>
+        </tr>
+        <tr>
+            <td>用户名称：</td>
+            <td><input class="easyui-validatebox" type="text" name="username" data-options="required:true"  value=""></input></td>
+        </tr>
+        <tr>
+            <td>用户密码：</td>
+            <td><input class="easyui-validatebox" type="password" name="userpassword" data-options="required:true"  value=""></input></td>
+        </tr>
+        <tr>
+            <td>性别：</td>
+            <td>
+                <input type="radio" name="msex" value="msex.male" checked="checked" /> 男
+                <input type="radio" name="msex" value="msex.female" /> 女
+            </td>
+        </tr>
+        <tr>
+            <td>是否启用：</td>
+            <td>
+                <input type="radio" name="mstatus" value="mstatus.normal" checked="checked" /> 启用
+                <input type="radio" name="mstatus" value="mstatus.stop" /> 停用
+            </td>
+        </tr>
+    </table>
+</form>
+<div style="text-align:center;padding:5px">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+</div>
+
+
+<script>
+    <!--
+    function submitForm(){
+        var usertel=$("input[name=usertel]");
+        var username=$("input[name=username]");
+        var userpassword=$("input[name=userpassword]");
+
+        $('#userinfoAddForm').form('submit',{
+            url:systemNamePath+"/userinfo/createuserinfo",
+            onSubmit:function(){
+                if(usertel.val() == null || usertel.val() == '')
+                {
+                    $.messager.alert('提示','请填写用户手机！');
+                    usertel.focus();
+                    return false;
+                }else{
+                    if(!date_util.isNum(usertel.val())){
+                        $.messager.alert('温馨提示','请填写正确的电话');
+                        usertel.focus();
+                        return false;
+                    }
+                }
+
+                if(username.val() == null || username.val() == '')
+                {
+                    $.messager.alert('提示','请填写用户名称！');
+                    username.focus();
+                    return false;
+                }
+
+                if(userpassword.val() == null || userpassword.val() == '')
+                {
+                    $.messager.alert('提示','请填写用户密码！');
+                    userpassword.focus();
+                    return false;
+                }
+            },
+            success:function(data){
+                var obj = baseutil.toJSON(data);
+                if(obj.code == baseutil.mess_succ ){
+                    $("#userinfo_win_add").dialog("destroy");
+                    $('#userinfolist').datagrid('load');
+                }else{
+                    $.messager.alert('提示',obj.mdesc);
+                    $("#userinfo_win_add").dialog("destroy");
+                }
+
+            }
+        });
+
+
+    }
+    -->
+</script>

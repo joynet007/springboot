@@ -1,0 +1,15 @@
+<script th:src="@{/js/userinfo/userinfo.js}"></script>
+<!--<table id="auuserlist" class="easyui-datagrid" title="用户列表" style="width:auto;height:auto"-->
+       <!--data-options="rownumbers:true,singleSelect:true,pagination:true,url:'/userinfo/userinfolist',method:'get',toolbar:userinfo.toolbar">-->
+<table id="userinfolist" class="easyui-datagrid" title="用户列表" style="width: 1000px;height:500px;"
+        data-options="rownumbers:true,singleSelect:true,url:'/web/userinfo/userinfolist',method:'get',toolbar:userinfo.toolbar">
+    <thead>
+    <tr>
+        <th data-options="field:'usertel',width:120">手机号</th>
+        <th data-options="field:'username',width:100">用户名称</th>
+        <th data-options="field:'msex',width:50,formatter:userinfo.formatter_msex">性别</th>
+        <th data-options="field:'mstatus',width:100,formatter:baseutil.formatter_status">用户状态</th>
+        <th data-options="field:'userid',width:120,hidden:true">用户编码</th>
+    </tr>
+    </thead>
+</table>

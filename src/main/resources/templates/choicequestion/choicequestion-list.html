@@ -1,0 +1,13 @@
+<script th:src="@{/js/choicequestion/choicequestion.js}"></script>
+<table id="choicequestionlist" class="easyui-datagrid" title="科目列表" style="width: auto;height:auto;"
+       data-options="rownumbers:true,singleSelect:true,url:'/web/choicequestion/viewlist',method:'get',toolbar:choicequestion.toolbar">
+    <!--<table id="choicequestionlist" class="easyui-datagrid" title="科目列表" style="width: 1000px;height:500px;"-->
+    <!--data-options="rownumbers:true,singleSelect:true,url:'/choicequestion/viewlist',method:'get',toolbar:choicequestion.toolbar">-->
+    <thead>
+    <tr>
+        <th data-options="field:'questionid',width:80,hidden:true">编码</th>
+        <th data-options="field:'name',width:150">题目名称</th>
+        <th data-options="field:'ctime',width:120">时间</th>
+    </tr>
+    </thead>
+</table>

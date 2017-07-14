@@ -1,0 +1,73 @@
+<form id="subjectAddForm" method="post" action= "/subject/save" >
+    <table>
+        <tr>
+            <td>科目编码：</td>
+            <td><input class="easyui-validatebox" type="text" name="subjectid" data-options="required:true"  value=""></input></td>
+        </tr>
+        <tr>
+            <td>科目名称：</td>
+            <td><input class="easyui-validatebox" type="text" name="subjectname" data-options="required:true"  value=""></input></td>
+        </tr>
+        <tr>
+            <td>所属分类：</td>
+            <td>
+                <p th:text="${parent.subjectname}" ></p>
+                <input type="text" th:value="${parent.subjectid}" name="parentid" hidden="ture"/></td>
+        </tr>
+        <tr>
+            <td>是否启用：</td>
+            <td>
+                <input type="radio" name="mstatus" value="mstatus.normal" checked="checked" /> 启用
+                <input type="radio" name="mstatus" value="mstatus.stop" /> 停用
+            </td>
+        </tr>
+    </table>
+</form>
+<div style="text-align:center;padding:5px">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+</div>
+
+
+<script>
+    <!--
+    function submitForm(){
+        var subjectid=$("input[name=subjectid]");
+        var subjectname=$("input[name=subjectname]");
+
+        $('#subjectAddForm').form('submit',{
+            url:systemNamePath+"/subject/save",
+            onSubmit:function(){
+                if(subjectid.val() == null || subjectid.val() == '')
+                {
+                    $.messager.alert('提示','请填写科目编号！');
+                    subjectid.focus();
+                    return false;
+                }
+
+                if(subjectname.val() == null || subjectname.val() == '')
+                {
+                    $.messager.alert('提示','请填写科目名称！');
+                    subjectname.focus();
+                    return false;
+                }
+
+            },
+            success:function(data){
+                var obj = baseutil.toJSON(data);
+                if(obj.code == baseutil.mess_succ ){
+                    $("#subject_win_add").dialog("destroy");
+                    $('#subject-tree').tree('reload');
+
+//                    $('#subject-tree').datagrid('load');
+                }else{
+                    $.messager.alert('提示',obj.mdesc);
+                    $("#subject_win_add").dialog("destroy");
+                }
+
+            }
+        });
+
+
+    }
+    -->
+</script>

@@ -1,0 +1,41 @@
+<div style="margin:10px;">
+    <input type="button" value="新增下级" id="subject_add_children" onclick="javascript:doaddchild()"/>
+    <input type="button" value="新增本级" id="subject_add_btother"  onclick="javascript:doaddbrother()"/>
+    <input type="button" value="删除数据" id="subject_del_oneself" onclick="javascript:del()"/>
+</div>
+<table style="margin-left: 10px" class="gridtable">
+        <tr>
+            <td>科目编码：</td>
+            <td><p th:text="${subject.subjectid}" ></p></td>
+        </tr>
+        <tr>
+            <td>科目名称：</td>
+            <td><p th:text="${subject.subjectname}" ></p></td>
+        </tr>
+        <tr>
+            <td>所属分类：</td>
+            <td><p th:text="${parent.subjectname}" ></p></td>
+        </tr>
+</table>
+
+<script th:inline="javascript">
+
+    var parentid;
+
+    function doaddchild(){
+        parentid = [[${subject.subjectid}]];
+        subject.add(parentid);
+    }
+
+    function doaddbrother(){
+        parentid = [[${parent.subjectid}]];
+        subject.add(parentid);
+    }
+
+    function del(){
+        var subid = [[${subject.subjectid}]];
+        parentid = [[${parent.subjectid}]];
+        subject.del(subid,parentid);
+    }
+
+</script>
