@@ -9,37 +9,33 @@
         <tr>
             <td>答案A：</td>
             <td>
-                <input class="easyui-textbox" name="answera" data-options="multiline:true" style="width:400px;height:60px"></input>
+                <input class="easyui-textbox" name="answera" data-options="multiline:true" style="width:400px;height:40px"></input>
             </td>
         </tr>
         <tr>
             <td>答案B：</td>
             <td>
-                <input class="easyui-textbox" name="answerb" data-options="multiline:true" style="width:400px;height:60px"></input>
+                <input class="easyui-textbox" name="answerb" data-options="multiline:true" style="width:400px;height:40px"></input>
             </td>
         </tr>
         <tr>
             <td>答案C：</td>
             <td>
-                <input class="easyui-textbox" name="answerc" data-options="multiline:true" style="width:400px;height:60px"></input>
+                <input class="easyui-textbox" name="answerc" data-options="multiline:true" style="width:400px;height:40px"></input>
             </td>
         </tr>
         <tr>
             <td>答案D：</td>
-            <td> <input class="easyui-textbox" name="answerd" data-options="multiline:true" style="width:400px;height:60px"></input></td>
+            <td> <input class="easyui-textbox" name="answerd" data-options="multiline:true" style="width:400px;height:40px"></input></td>
         </tr>
         <tr>
-            <td>真实答案：</td>
+            <td>参考答案：</td>
             <td>
-                <input class="easyui-validatebox" type="text" name="realanswer" data-options="required:true"  />
-
-
-                <select class="easyui-combobox" name="language">
+                <select class="easyui-combobox" name="realanswer">
                     <option value="A">--A--</option>
                     <option value="B">--B--</option>
                     <option value="C">--C--</option>
                     <option value="D">--D--</option>
-                    <option value="nl">Dutch</option>
                 </select>
             </td>
         </tr>
@@ -117,7 +113,7 @@
                 var obj = baseutil.toJSON(data);
                 if(obj.code == baseutil.mess_succ ){
                     $("#choicequestion_win_add").dialog("destroy");
-                    $('#choicequestion').datagrid('load');
+                    $('#choicequestionlist').datagrid('load');
                 }else{
                     $.messager.alert('提示',obj.mdesc);
                     $("#choicequestion_win_add").dialog("destroy");

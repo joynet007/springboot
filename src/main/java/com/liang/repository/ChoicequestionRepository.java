@@ -12,7 +12,7 @@ import java.util.List;
 public interface ChoicequestionRepository extends CrudRepository<Choicequestion, Integer> {
 
     @Query(value = "select * from tb_choicequestion where questionid = ?1" ,nativeQuery=true)
-    Choicequestion findMoniYear(String questionid);
+    Choicequestion findChoiceQuestion(String questionid);
 
 
 

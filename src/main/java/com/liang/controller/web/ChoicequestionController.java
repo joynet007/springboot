@@ -1,12 +1,17 @@
 package com.liang.controller.web;
 
+import com.liang.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.Choicequestion;
 import com.liang.pojo.po.ChoicequestionExplain;
 import com.liang.pojo.po.UserInfo;
 import com.liang.repository.ChoicequestionExplainRepository;
 import com.liang.repository.ChoicequestionRepository;
+import com.liang.service.subjectservice.ChoiceQuestionManager;
 import com.liang.util.IDmanager;
+import com.liang.util.StringUtil;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +26,18 @@ import java.util.List;
 @RequestMapping("/web/choicequestion")
 public class ChoicequestionController {
 
+    private static Logger logger = LogManager.getLogger("HelloLog4j");
+
     @Autowired
     ChoicequestionRepository choicequestionRepository;
 
     @Autowired
     ChoicequestionExplainRepository choicequestionExplainRepository;
+
+    @Autowired
+    ChoiceQuestionManager choiceQuestionManager;
+
+    MessageObject mo;
 
     @RequestMapping(value="/startpage")
     public String startpage(){
@@ -39,6 +51,7 @@ public class ChoicequestionController {
         List<Choicequestion> list= (List<Choicequestion>) choicequestionRepository.findAll();
         return list;
     }
+
 
     @RequestMapping(value="/add")
     public String add(){
@@ -59,7 +72,7 @@ public class ChoicequestionController {
                               @RequestParam(required = false) String explain ,
                               Model model){
 
-        MessageObject mo = new MessageObject();
+        mo = new MessageObject();
 
         String questionID = IDmanager.createID();
         Choicequestion cq = new Choicequestion();
@@ -77,25 +90,41 @@ public class ChoicequestionController {
 
         cq.setRealanswer(realanswer);
 
-        choicequestionRepository.save(cq);
-
-
         ChoicequestionExplain ce = new ChoicequestionExplain();
 
         ce.setMexplain(explain);
         ce.setQuestionid(questionID);
 
-        choicequestionExplainRepository.save(ce);
-
-
+        try{
+            mo = choiceQuestionManager.docreate(cq,ce);
+        }catch (Exception ex){
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("保存失败111！");
+            logger.info(ex.getMessage());
+//            ex.printStackTrace();
+        }
         return mo;
     }
 
     @RequestMapping(value="/del/{choicequestionid}")
-    public String del(@PathVariable String choicequestionid){
+    public MessageObject del(@PathVariable String choicequestionid){
+        mo = new MessageObject();
+        if(StringUtil.isEmpty(choicequestionid)){
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("要删除的选择题编码不能为空！");
+            return mo;
+        }
 
-        return "";
+        Choicequestion cq = choicequestionRepository.findChoiceQuestion(choicequestionid);
+        if(cq == null){
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("要删除的对象不存在！");
+            return mo;
+        }
 
+        choicequestionRepository.delete(cq);
+
+        return mo;
     }
 
     @RequestMapping(value="/view")
