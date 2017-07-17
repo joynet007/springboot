@@ -18,4 +18,7 @@ public interface SubjectRepository extends CrudRepository<Subject, Integer> {
     @Query(value = "select * from tb_subject where subjectid = ?1" ,nativeQuery=true)
     Subject findSubject(String subjectid);
 
+    @Query(value = "select * from tb_subject where mlevel = ?1" ,nativeQuery=true)
+    List<Subject> findSubjectByLevel(int mlevel);
+
 }

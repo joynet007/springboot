@@ -10,8 +10,8 @@ choicequestion.add = function(id){
     var url = systemNamePath+"/choicequestion/add";
     $("#choicequestion_win_add").dialog({
         href:url,
-        width:600,
-        height:500,
+        width:1000,
+        height:600,
         modal:true,
         title:'新增题目',
         onClose : function() {
@@ -28,24 +28,34 @@ choicequestion.edit = function (){
 
 // $.ajax({url:systemNamePath+'/userinfo/del/'+usertel,async:false});
 
-choicequestion.del = function(subid,parentid){
-    var url = systemNamePath+'/choicequestion/delete/'+subid;
-    jQuery.messager.confirm('提示:','确定删除此节点信息么?',function(event){
-        if (event) {
-            $.ajax({
-                url: url,
-                success: function (data) {
-                    if (data.code == baseutil.mess_succ) {
-                        $('#choicequestion-tree').tree('reload');
-                    } else {
-                        $.messager.alert('提示', obj.mdesc);
+choicequestion.del = function(){
+
+    var row = $('#choicequestionlist').datagrid('getSelected');
+    if(row == null){
+        $.messager.alert('提示','请选取一行数据');
+    }else{
+        var questionid = row.questionid;
+
+        var url = systemNamePath+'/choicequestion/del/'+questionid;
+        jQuery.messager.confirm('提示:','确定删除此节点信息么?',function(event){
+            if (event) {
+                $.ajax({
+                    url: url,
+                    success: function (data) {
+                        if (data.code == baseutil.mess_succ) {
+                            $('#choicequestionlist').datagrid('reload');
+                            // $('#choicequestionlist').datagrid('load');
+                        } else {
+                            $.messager.alert('提示', obj.mdesc);
+                        }
                     }
-                }
-            });
-        } else {
-            //nothing
-        }
-    });
+                });
+            } else {
+                //nothing
+            }
+        });
+    }
+
 };
 
 // choicequestion.del = function(subid,parentid){

@@ -5,7 +5,6 @@ import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.Subject;
 import com.liang.repository.SubjectRepository;
 import com.liang.service.subjectservice.SubjectTreeImpl;
-import com.liang.util.GsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -162,6 +161,20 @@ public class SubjectController {
         List<Subject> list = (List<Subject>) subjectRepository.findAll();
         return list;
     }
+
+
+    /**
+     * 根据 mlevel 查询列表对象
+     * @param mlevel
+     * @return
+     */
+    @RequestMapping(value="/findSubjectByLevel")
+    @ResponseBody
+    public List<Subject> findSubjectByLevel(@RequestParam int mlevel){
+        List<Subject> list = (List<Subject>) subjectRepository.findSubjectByLevel(mlevel);
+        return list;
+    }
+
 
 
 

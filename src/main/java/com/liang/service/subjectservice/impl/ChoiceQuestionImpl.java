@@ -46,4 +46,21 @@ public class ChoiceQuestionImpl implements ChoiceQuestionManager {
         return mo;
 
     }
+
+    @Transactional
+    @Override
+    public MessageObject dodel(Choicequestion cq, ChoicequestionExplain ce) {
+        mo = new MessageObject();
+        try{
+            choicequestionRepository.delete(cq);
+
+            choicequestionExplainRepository.delete(ce);
+        }catch (Exception e){
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("删除失败！");
+            e.printStackTrace();
+        }
+        return mo;
+
+    }
 }

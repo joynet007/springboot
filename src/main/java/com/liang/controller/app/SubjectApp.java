@@ -7,7 +7,9 @@ import com.liang.repository.SubjectRepository;
 import com.liang.util.GsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,9 +26,9 @@ public class SubjectApp {
 
     private MessageObject mo = new MessageObject(SystemConfig.mess_succ,"登录成功");
 
-    @RequestMapping(value="/viewlist")
-    public MessageObject viewlist(){
-        List<Subject> list = (List<Subject>) subjectRepository.findAll();
+    @RequestMapping(value="/viewlist/{mlevel}")
+    public MessageObject viewlist(@PathVariable int mlevel){
+        List<Subject> list = (List<Subject>) subjectRepository.findSubjectByLevel(mlevel);
         if(list != null ){
             String content = GsonUtil.objTOjson(list);
             System.out.println("****content***"+content);

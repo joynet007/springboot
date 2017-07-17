@@ -4,9 +4,11 @@ import com.liang.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.Choicequestion;
 import com.liang.pojo.po.ChoicequestionExplain;
+import com.liang.pojo.po.Subject;
 import com.liang.pojo.po.UserInfo;
 import com.liang.repository.ChoicequestionExplainRepository;
 import com.liang.repository.ChoicequestionRepository;
+import com.liang.repository.SubjectRepository;
 import com.liang.service.subjectservice.ChoiceQuestionManager;
 import com.liang.util.IDmanager;
 import com.liang.util.StringUtil;
@@ -37,6 +39,9 @@ public class ChoicequestionController {
     @Autowired
     ChoiceQuestionManager choiceQuestionManager;
 
+    @Autowired
+    SubjectRepository subjectRepository;
+
     MessageObject mo;
 
     @RequestMapping(value="/startpage")
@@ -54,7 +59,11 @@ public class ChoicequestionController {
 
 
     @RequestMapping(value="/add")
-    public String add(){
+    public String add(Model model){
+        List<Subject> subjects = (List<Subject>)subjectRepository.findSubjectByLevel(1);
+        if(subjects!=null){
+            model.addAttribute("subjects",subjects);
+        }
         return "/choicequestion/choicequestion-add";
     }
 
@@ -107,6 +116,7 @@ public class ChoicequestionController {
     }
 
     @RequestMapping(value="/del/{choicequestionid}")
+    @ResponseBody
     public MessageObject del(@PathVariable String choicequestionid){
         mo = new MessageObject();
         if(StringUtil.isEmpty(choicequestionid)){
