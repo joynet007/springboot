@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -28,8 +29,10 @@ public class MoniYearController {
      * @return
      */
     @RequestMapping(value="/viewlist")
+    @ResponseBody
     public List<MoniYear> viewlist(){
 
+        System.out.println("--查看历年的模拟题列表--");
         List<MoniYear> list =(List<MoniYear>)moniYearRepository.findAll();
 
         return list;

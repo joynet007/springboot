@@ -17,9 +17,9 @@ public class Choicequestion {
     @Id
     public String questionid;
     public String name;
-    public String subleve1;
-    public String subleve2;
-    public String subleve3;
+    public String sublevel1;
+    public String sublevel2;
+    public String sublevel3;
     public String answera;
     public String answerb;
     public String answerc;
@@ -44,28 +44,28 @@ public class Choicequestion {
         this.name = name;
     }
 
-    public String getSubleve1() {
-        return subleve1;
+    public String getSublevel1() {
+        return sublevel1;
     }
 
-    public void setSubleve1(String subleve1) {
-        this.subleve1 = subleve1;
+    public void setSublevel1(String sublevel1) {
+        this.sublevel1 = sublevel1;
     }
 
-    public String getSubleve2() {
-        return subleve2;
+    public String getSublevel2() {
+        return sublevel2;
     }
 
-    public void setSubleve2(String subleve2) {
-        this.subleve2 = subleve2;
+    public void setSublevel2(String sublevel2) {
+        this.sublevel2 = sublevel2;
     }
 
-    public String getSubleve3() {
-        return subleve3;
+    public String getSublevel3() {
+        return sublevel3;
     }
 
-    public void setSubleve3(String subleve3) {
-        this.subleve3 = subleve3;
+    public void setSublevel3(String sublevel3) {
+        this.sublevel3 = sublevel3;
     }
 
     public String getAnswera() {

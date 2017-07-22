@@ -41,9 +41,38 @@
         </tr>
         <tr>
             <td>所属科目</td>
+            <td id="cslectid">
+
+                <select id="cc1" class="easyui-combobox" style="width: 180px" data-options="
+                valueField: 'subjectid',
+                textField: 'subjectname',
+                url: '/web/subject/findSubjectBypid/rootid',
+                onSelect: function(rec){
+                    var url = '/web/subject/findSubjectBypid/'+rec.subjectid;
+                    $('#cc2').combobox('reload', url);
+                }"
+                >
+                </select>
+                <select id="cc2" class="easyui-combobox" style="width: 180px"
+                        data-options="valueField:'subjectid',textField:'subjectname',
+                        onSelect: function(rec){
+                            var url = '/web/subject/findSubjectBypid/'+rec.subjectid;
+                            $('#cc3').combobox('reload', url);
+                        }"
+                >
+                </select>
+                <select id="cc3" class="easyui-combobox" style="width: 180px" data-options="valueField:'subjectid',textField:'subjectname'" >
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>所属考年：</td>
             <td>
-                <select class="easyui-combobox" name="sbjectleve1" style="width: 300px">
-                        <option th:each="subject:${subjects}"  th:value="${subject.subjectid}" th:text="${subject.subjectname}" ></option>
+                <select id="cc4" class="easyui-combobox" style="width: 180px" data-options="
+                valueField: 'moniid',
+                textField: 'moniname',
+                url: '/web/moniyear/viewlist'"
+                >
                 </select>
             </td>
         </tr>
@@ -60,8 +89,10 @@
 </div>
 
 
-<script>
+<script th:inline="javascript">
     <!--
+
+
     function submitForm(){
         var choicequestionname=$("input[name=choicequestionname]");
         var answera=$("input[name=answera]");

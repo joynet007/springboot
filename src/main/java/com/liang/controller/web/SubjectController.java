@@ -176,6 +176,18 @@ public class SubjectController {
     }
 
 
+    /**
+     * 根据 parentid 查询列表对象
+     * @param pid
+     * @return
+     */
+    @RequestMapping(value="/findSubjectBypid/{pid}")
+    @ResponseBody
+    public List<Subject> findSubjectBypid(@PathVariable String pid){
+        List<Subject> list = (List<Subject>) subjectRepository.findSubjectBypid(pid);
+        return list;
+    }
+
 
 
 }

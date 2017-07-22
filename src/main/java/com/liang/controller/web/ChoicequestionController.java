@@ -93,9 +93,9 @@ public class ChoicequestionController {
         cq.setAnswerc(answerc);
         cq.setAnswerd(answerd);
 
-        cq.setSubleve1(sublevel1);
-        cq.setSubleve2(sublevel2);
-        cq.setSubleve2(sublevel3);
+        cq.setSublevel1(sublevel1);
+        cq.setSublevel2(sublevel2);
+        cq.setSublevel2(sublevel3);
 
         cq.setRealanswer(realanswer);
 

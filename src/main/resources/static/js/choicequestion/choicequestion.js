@@ -58,6 +58,32 @@ choicequestion.del = function(){
 
 };
 
+
+/**
+ * ===============================题目所属科目==================================================
+ * 用户触发了科目选择框，如果选择了科目，则 章节 要跟着联动，如果选择为空则 章节、段落都初始为空。
+ *
+ */
+choicequestion.sublevel_one=function(rec){
+    var url = systemNamePath+'/subject/findSubjectBypid/'+rec.subjectid;
+    alert(url);
+    // $('#sublevel_two').combobox('reload', url);
+};
+
+// choicequestion.sublevel_two=function(rec){
+//     var url = systemNamePath+'/subject/findSubjectBypid/'+rec.subjectid;
+//     if(rec.subjectid == '' ){
+//         $('#sublevel_three').combobox('clear');
+//         $('#sublevel_three').combobox('setValues', ['','--请选择--']);
+//     }else{
+//         $('#sublevel_three').combobox('clear');
+//         $('#sublevel_three').combobox('reload', url);
+//     }
+// };
+
+
+
+
 // choicequestion.del = function(subid,parentid){
 //     var url = systemNamePath+'/choicequestion/delete/'+subid;
 //     jQuery.messager.confirm('提示:','确定删除此节点信息么?',function(event) {
