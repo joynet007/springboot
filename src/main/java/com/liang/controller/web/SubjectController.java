@@ -185,6 +185,7 @@ public class SubjectController {
     @ResponseBody
     public List<Subject> findSubjectBypid(@PathVariable String pid){
         List<Subject> list = (List<Subject>) subjectRepository.findSubjectBypid(pid);
+        System.out.println(list.size()+"--aa--");
         return list;
     }
 

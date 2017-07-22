@@ -10,6 +10,7 @@ import com.liang.repository.ChoicequestionExplainRepository;
 import com.liang.repository.ChoicequestionRepository;
 import com.liang.repository.SubjectRepository;
 import com.liang.service.subjectservice.ChoiceQuestionManager;
+import com.liang.util.GsonUtil;
 import com.liang.util.IDmanager;
 import com.liang.util.StringUtil;
 import org.apache.log4j.LogManager;
@@ -78,6 +79,7 @@ public class ChoicequestionController {
                               @RequestParam(required = false) String sublevel2 ,
                               @RequestParam(required = false) String sublevel3 ,
                               @RequestParam(required = false) String realanswer ,
+                              @RequestParam(required = false) String moniid ,
                               @RequestParam(required = false) String explain ,
                               Model model){
 
@@ -95,9 +97,14 @@ public class ChoicequestionController {
 
         cq.setSublevel1(sublevel1);
         cq.setSublevel2(sublevel2);
-        cq.setSublevel2(sublevel3);
+        cq.setSublevel3(sublevel3);
+
+        cq.setMoniid(Long.parseLong(moniid));
 
         cq.setRealanswer(realanswer);
+
+
+        System.out.println("--保存 cq ："+ GsonUtil.objTOjson(cq));
 
         ChoicequestionExplain ce = new ChoicequestionExplain();
 

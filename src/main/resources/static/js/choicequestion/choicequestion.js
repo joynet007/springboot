@@ -64,10 +64,9 @@ choicequestion.del = function(){
  * 用户触发了科目选择框，如果选择了科目，则 章节 要跟着联动，如果选择为空则 章节、段落都初始为空。
  *
  */
-choicequestion.sublevel_one=function(rec){
-    var url = systemNamePath+'/subject/findSubjectBypid/'+rec.subjectid;
-    alert(url);
-    // $('#sublevel_two').combobox('reload', url);
+choicequestion.cc1=function(rec){
+    var url = systemNamePath+'/web/subject/findSubjectBypid/'+rec.subjectid;
+    $('#cc2').combobox('reload', url);
 };
 
 // choicequestion.sublevel_two=function(rec){
