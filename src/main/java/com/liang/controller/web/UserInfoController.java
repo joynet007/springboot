@@ -4,6 +4,7 @@ import com.liang.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.UserInfo;
 import com.liang.repository.UserRepository;
+import com.liang.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,7 +85,8 @@ public class UserInfoController {
         try {
             if(userInfo == null){
                 userInfo = new UserInfo();
-                userInfo.setUserpassword(userpassword);
+                userpassword = MD5Util.getMD5Code(userpassword);
+                userInfo.setUserpassword( userpassword );
                 userInfo.setUsertel(usertel);
                 userInfo.setCreatetime(System.currentTimeMillis());
                 userInfo.setMstatus(mstatus);

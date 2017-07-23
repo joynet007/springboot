@@ -79,7 +79,7 @@ public class ChoicequestionController {
                               @RequestParam(required = false) String sublevel2 ,
                               @RequestParam(required = false) String sublevel3 ,
                               @RequestParam(required = false) String realanswer ,
-                              @RequestParam(required = false) String moniid ,
+                              @RequestParam(required = false) String moniname ,
                               @RequestParam(required = false) String explain ,
                               Model model){
 
@@ -99,7 +99,7 @@ public class ChoicequestionController {
         cq.setSublevel2(sublevel2);
         cq.setSublevel3(sublevel3);
 
-        cq.setMoniid(Long.parseLong(moniid));
+        cq.setMoniname(moniname);
 
         cq.setRealanswer(realanswer);
 

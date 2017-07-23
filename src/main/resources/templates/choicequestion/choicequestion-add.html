@@ -2,7 +2,7 @@
     <table>
         <tr>
             <td>题目描述：</td>
-            <td>
+            <td colspan="3">
                 <input class="easyui-textbox" name="choicequestionname" data-options="multiline:true" style="width:800px;height:100px"></input>
             </td>
         </tr>
@@ -33,49 +33,48 @@
             <td>
                 <select class="easyui-combobox" name="realanswer" style="width: 300px">
                     <option value="" selected="true">--请选择--</option>
-                    <option value="A">--A--</option>
-                    <option value="B">--B--</option>
-                    <option value="C">--C--</option>
-                    <option value="D">--D--</option>
+                    <option value="A"> A </option>
+                    <option value="B"> B </option>
+                    <option value="C"> C </option>
+                    <option value="D"> D </option>
                 </select>
             </td>
         </tr>
         <tr>
             <td>所属科目</td>
             <td id="cslectid">
-                <select id="sb1" style="width: 180px" name="sublevel1">
-                    <option value="">--请选择--</option>
-                    <option th:each="subject:${subjects}"  th:value="${subject.subjectid}" th:text="${subject.subjectname}" ></option>
-                </select>
-                <select id="sb2" style="width: 180px" name="sublevel2"></select>
-                <select id="sb3" style="width: 180px" name="sublevel3"></select>
+                <!--<select id="sb1" style="width: 180px" name="sublevel1">-->
+                    <!--<option value="">&#45;&#45;请选择&#45;&#45;</option>-->
+                    <!--<option th:each="subject:${subjects}"  th:value="${subject.subjectid}" th:text="${subject.subjectname}" ></option>-->
+                <!--</select>-->
+                <!--<select id="sb2" style="width: 180px" name="sublevel2"></select>-->
+                <!--<select id="sb3" style="width: 180px" name="sublevel3"></select>-->
 
-                <!--<input id="cc1" class="easyui-combobox" style="width: 180px" name="sublevel1"-->
-                       <!--data-options="-->
-                <!--valueField: 'subjectid',-->
-                <!--textField: 'subjectname',-->
-                <!--url: '/web/subject/findSubjectBypid/rootid',-->
-                    <!--onSelect: function(rec){-->
-                    <!--var url = '/web/subject/findSubjectBypid/'+rec.subjectid;-->
-                    <!--$('#cc2').combobox('reload', url);-->
-                <!--},panelHeight:'auto' "-->
-                <!--/>-->
-                <!--<input id="cc2" class="easyui-combobox" style="width: 180px" name="sublevel2"-->
-                        <!--data-options="valueField:'subjectid',textField:'subjectname',onSelect:function(rec){-->
-                           <!--$('#cc2').combobox('setValue',rec.subjectid);-->
-                           <!--$('#cc2').combobox('setText',rec.subjectname);-->
-                        <!--}"-->
-                <!--/>-->
-                <!--<input id="cc3" class="easyui-combobox" style="width: 180px" name="sublevel3"-->
-                        <!--data-options="valueField:'subjectid',textField:'subjectname'" >-->
-                <!--</input>-->
+                <input id="cc1" class="easyui-combobox" style="width: 180px" name="sublevel1"
+                       data-options="valueField: 'subjectid',textField: 'subjectname',
+                        url: '/web/subject/findSubjectBypid/rootid',
+                        onSelect: function(rec){
+                            var url = '/web/subject/findSubjectBypid/'+rec.subjectid;
+                            $('#cc2').combobox('reload', url);
+                },panelHeight:'auto' "
+                />
+                <input id="cc2" class="easyui-combobox" style="width: 180px" name="sublevel2"
+                        data-options="valueField:'subjectid',textField:'subjectname',
+                        onSelect:function(rec){
+                            var url = '/web/subject/findSubjectBypid/'+rec.subjectid;
+                            $('#cc3').combobox('reload', url);
+                        },panelHeight:'auto' "
+                />
+                <input id="cc3" class="easyui-combobox" style="width: 180px" name="sublevel3"
+                        data-options="valueField:'subjectid',textField:'subjectname'" >
+                </input>
             </td>
         </tr>
         <tr>
             <td>所属考年：</td>
             <td>
-                <select id="cc4" class="easyui-combobox" style="width: 180px" name="moniid" data-options="
-                valueField: 'moniid',
+                <select id="cc4" class="easyui-combobox" style="width: 180px" name="moniname" data-options="
+                valueField: 'moniname',
                 textField: 'moniname',
                 url: '/web/moniyear/viewlist'"
                 >
@@ -97,39 +96,6 @@
 
 <script th:inline="javascript">
     <!--
-
-    $(document).ready(function() {
-        //绑定下拉框change事件，当下来框改变时调用 SelectChange()方法
-        $("#sb1").change(function() {
-            var selectValue = $("#sb1").val();
-            var url =systemNamePath+'/subject/findSubjectBypid/'+selectValue;
-            var htmlobj=$.ajax({url:url,async:false}).responseJSON;
-            for(i=0;i<htmlobj.length;i++){
-                var obj = htmlobj[i];
-                var val = obj.subjectid;
-                var name = obj.subjectname;
-                $("#sb2").append("<option value='"+val+"'>"+name+"</option>");
-            }
-            //清除三
-            $("#sb3").empty();
-            $("#sb3").append("<option value=''>-请选择-</option>");
-
-        });
-        $("#sb2").change(function() {
-            //获取下拉框选中项的value属性值
-            var selectValue = $("#sb2").val();
-            var url =systemNamePath+'/subject/findSubjectBypid/'+selectValue;
-            var htmlobj=$.ajax({url:url,async:false}).responseJSON;
-//            var dd = htmlobj.responseJSON;
-            for(i=0;i<htmlobj.length;i++){
-                var obj = htmlobj[i];
-                var val = obj.subjectid;
-                var name = obj.subjectname;
-                $("#sb3").append("<option value='"+val+"'>"+name+"</option>");
-            }
-        });
-    })
-
 
     function submitForm(){
         var choicequestionname=$("input[name=choicequestionname]");
@@ -185,13 +151,15 @@
                 }
 
                 //获取下拉框选中项的value属性值
-                var sublevel1 = $("#sb1").val();
-                var sublevel2 = $("#sb2").val();
-                var sublevel3 = $("#sb3").val();
+                var sublevel1 = $('#cc1').combobox('getValue');
+                var sublevel2 = $('#cc2').combobox('getValue');
+                var sublevel3 = $('#cc3').combobox('getValue');
 
-                alert(sublevel1+"-"+sublevel2+"-"+sublevel3);
+                if(""==sublevel1 || ""==sublevel2 || ""==sublevel3 ){
+                    $.messager.alert('提示','请选择详细的科目');
+                    return false;
+                }
 
-                return ;
 
 
             },

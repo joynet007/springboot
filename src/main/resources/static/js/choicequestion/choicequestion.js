@@ -59,60 +59,6 @@ choicequestion.del = function(){
 };
 
 
-/**
- * ===============================题目所属科目==================================================
- * 用户触发了科目选择框，如果选择了科目，则 章节 要跟着联动，如果选择为空则 章节、段落都初始为空。
- *
- */
-choicequestion.cc1=function(rec){
-    var url = systemNamePath+'/web/subject/findSubjectBypid/'+rec.subjectid;
-    $('#cc2').combobox('reload', url);
-};
-
-// choicequestion.sublevel_two=function(rec){
-//     var url = systemNamePath+'/subject/findSubjectBypid/'+rec.subjectid;
-//     if(rec.subjectid == '' ){
-//         $('#sublevel_three').combobox('clear');
-//         $('#sublevel_three').combobox('setValues', ['','--请选择--']);
-//     }else{
-//         $('#sublevel_three').combobox('clear');
-//         $('#sublevel_three').combobox('reload', url);
-//     }
-// };
-
-
-
-
-// choicequestion.del = function(subid,parentid){
-//     var url = systemNamePath+'/choicequestion/delete/'+subid;
-//     jQuery.messager.confirm('提示:','确定删除此节点信息么?',function(event) {
-//         if (event) {
-//             $.ajax({
-//                 url: url,
-//                 success: function (data) {
-//                     alert(data+"--data--");
-//                     var obj = baseutil.toJSON(data);
-//                     alert(obj.code+"---aaa---");
-//                     if (obj.code == baseutil.mess_succ) {
-//                         $('#choicequestion-tree').datagrid('load');
-//                         var url = systemNamePath + '/choicequestion/choicequestion-view/' + parentid;
-//                         $('#choicequestion-tree-panel').panel('refresh', url);
-//                     } else {
-//                         $.messager.alert('提示', obj.mdesc);
-//                     }
-//                 }
-//             });
-//         } else {
-//             //nothing
-//         }
-//     });
-// };
-
-//
-// choicequestion.reload = function (){
-//     $('#choicequestionlist').datagrid('reload');
-// };
-
 
 
 

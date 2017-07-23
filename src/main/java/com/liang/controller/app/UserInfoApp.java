@@ -5,13 +5,12 @@ import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.UserInfo;
 import com.liang.repository.UserRepository;
 import com.liang.util.GsonUtil;
+import com.liang.util.MD5Util;
 import com.liang.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,7 +33,6 @@ public class UserInfoApp {
                                  @RequestParam(required = false) String userpassword,
                                  HttpServletRequest request){
 
-        System.out.println(usertel+"--"+userpassword);
         try {
 
             if(StringUtil.isEmpty(usertel) || StringUtil.isEmpty(userpassword)){
@@ -42,7 +40,7 @@ public class UserInfoApp {
                 mo.setCode(SystemConfig.mess_succ);
                 return mo;
             }
-
+            userpassword = MD5Util.getMD5Code(userpassword);
             UserInfo user = userRepository.findUser(usertel,userpassword);
             if(user==null){
                 mo.setMdesc("手机号或者用户密码错误");
@@ -56,6 +54,44 @@ public class UserInfoApp {
             e.printStackTrace();
         }
         return mo;
+    }
+
+    /**
+     * 创建用户信息
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/doregister", method = RequestMethod.POST)
+    @ResponseBody
+    public MessageObject doregister(@RequestParam(required = false) String usertel ,
+                                        @RequestParam(required = false) String userpassword ,
+                                        @RequestParam(required = false) String username ,
+                                        Model model){
+        UserInfo userInfo =  userRepository.findByUsertel(usertel);
+        MessageObject messageObject = new MessageObject(SystemConfig.mess_succ,"执行成功！");
+        try {
+            if(userInfo == null){
+                userInfo = new UserInfo();
+                userpassword = MD5Util.getMD5Code(userpassword);
+                userInfo.setUserpassword( userpassword );
+                userInfo.setUsertel(usertel);
+                userInfo.setCreatetime(System.currentTimeMillis());
+                userInfo.setMstatus(SystemConfig.mstatus_normal);
+                userInfo.setUsername(username);
+                userInfo.setMsex(SystemConfig.sex_male);
+                userRepository.save(userInfo);
+            }else{
+                messageObject.setCode(SystemConfig.mess_failed);
+                messageObject.setMdesc("您已经完成注册,请直接去登录！");
+                return messageObject;
+            }
+            return messageObject;
+        } catch (Exception e) {
+            e.printStackTrace();
+            messageObject.setCode(SystemConfig.mess_failed);
+            messageObject.setMdesc("创建失败，执行异常！");
+            return messageObject;
+        }
     }
 
 }

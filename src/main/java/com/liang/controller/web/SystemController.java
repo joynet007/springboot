@@ -3,6 +3,7 @@ package com.liang.controller.web;
 import com.liang.SystemConfig;
 import com.liang.pojo.po.UserInfo;
 import com.liang.repository.UserRepository;
+import com.liang.util.MD5Util;
 import com.liang.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,7 @@ public class SystemController {
             {
                 return "/index";
             }
+            userpassword = MD5Util.getMD5Code(userpassword);
             user = userRepository.findUser(usertel,userpassword);
             if(user==null){
                 return "/index";

@@ -27,7 +27,7 @@ public class Choicequestion {
     public String answere;
     public String realanswer;
     public long ctime;
-    public long moniid;
+    public String moniname;
 
     public String getQuestionid() {
         return questionid;
@@ -125,11 +125,11 @@ public class Choicequestion {
         this.realanswer = realanswer;
     }
 
-    public long getMoniid() {
-        return moniid;
+    public String getMoniname() {
+        return moniname;
     }
 
-    public void setMoniid(long moniid) {
-        this.moniid = moniid;
+    public void setMoniname(String moniname) {
+        this.moniname = moniname;
     }
 }

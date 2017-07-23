@@ -26,6 +26,16 @@ baseutil.formatter_status = function(val , rowObj){
 	}
 };
 
+baseutil.formatter_time =function(val , rowObj){
+	// if(val>10000){
+	// 	return val+"_000";
+	// }
+	// return "000";
+    var newTime = new Date(val);
+    return newTime.toLocaleString();
+}
+
+
 
 /***
  * 去掉前后的空格
@@ -51,7 +61,7 @@ baseutil.toJSON = function (data){
 }
 
 
-function isNumber(oNum) 
+function isNumber(oNum)
 {
 	if(!oNum) return false;
 	var strP=/^\d+(\.\d+)?$/;

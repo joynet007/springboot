@@ -16,6 +16,8 @@ public class SystemConfig {
 	public static final String root = "root";
 	public static final String rootid = "rootid";
 
+	public static final String sex_male = "sex.male"; //男人
+	public static final String sex_female = "sex.female";//女人
 
 	/**
      * 用户sessionkey
