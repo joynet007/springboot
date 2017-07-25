@@ -1,36 +1,53 @@
 <form id="choicequestionAddForm" method="post" action= "/choicequestion/save" >
     <table>
         <tr>
+            <td>所属考年：</td>
+            <td>
+                <select id="cc4" class="easyui-combobox" style="width: 180px" name="moniname" data-options="
+                valueField: 'moniname',
+                textField: 'moniname',
+                url: '/web/moniyear/viewlist'"
+                >
+                </select>
+            </td>
+            <td>考题编号：</td>
+            <td>
+                <input class="easyui-textbox" name="monicode" data-options="multiline:false"  style="width:100px;"></input>
+            </td>
+        </tr>
+        <tr>
             <td>题目描述：</td>
-            <td colspan="3">
+            <td th:colspan="3">
                 <input class="easyui-textbox" name="choicequestionname" data-options="multiline:true" style="width:800px;height:100px"></input>
             </td>
         </tr>
         <tr>
             <td>答案A：</td>
-            <td>
+            <td th:colspan="3">
                 <input class="easyui-textbox" name="answera" data-options="multiline:true" style="width:800px;height:40px"></input>
             </td>
         </tr>
         <tr>
             <td>答案B：</td>
-            <td>
+            <td th:colspan="3">
                 <input class="easyui-textbox" name="answerb" data-options="multiline:true" style="width:800px;height:40px"></input>
             </td>
         </tr>
         <tr>
             <td>答案C：</td>
-            <td>
+            <td th:colspan="3">
                 <input class="easyui-textbox" name="answerc" data-options="multiline:true" style="width:800px;height:40px"></input>
             </td>
         </tr>
         <tr>
             <td>答案D：</td>
-            <td> <input class="easyui-textbox" name="answerd" data-options="multiline:true" style="width:800px;height:40px"></input></td>
+            <td th:colspan="3">
+                <input class="easyui-textbox" name="answerd" data-options="multiline:true" style="width:800px;height:40px"></input>
+            </td>
         </tr>
         <tr>
             <td>参考答案：</td>
-            <td>
+            <td th:colspan="3">
                 <select class="easyui-combobox" name="realanswer" style="width: 300px">
                     <option value="" selected="true">--请选择--</option>
                     <option value="A"> A </option>
@@ -42,7 +59,7 @@
         </tr>
         <tr>
             <td>所属科目</td>
-            <td id="cslectid">
+            <td  id="cslectid" th:colspan="3">
                 <!--<select id="sb1" style="width: 180px" name="sublevel1">-->
                     <!--<option value="">&#45;&#45;请选择&#45;&#45;</option>-->
                     <!--<option th:each="subject:${subjects}"  th:value="${subject.subjectid}" th:text="${subject.subjectname}" ></option>-->
@@ -71,19 +88,8 @@
             </td>
         </tr>
         <tr>
-            <td>所属考年：</td>
-            <td>
-                <select id="cc4" class="easyui-combobox" style="width: 180px" name="moniname" data-options="
-                valueField: 'moniname',
-                textField: 'moniname',
-                url: '/web/moniyear/viewlist'"
-                >
-                </select>
-            </td>
-        </tr>
-        <tr>
             <td>习题详解：</td>
-            <td>
+            <td th:colspan="3">
                 <input class="easyui-textbox" name="explain" data-options="multiline:true" style="width:800px;height:100px"></input>
             </td>
         </tr>

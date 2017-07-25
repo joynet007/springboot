@@ -43,11 +43,15 @@ public class SystemController {
             {
                 return "/index";
             }
+
+            //变成md5 在查询
             userpassword = MD5Util.getMD5Code(userpassword);
+
             user = userRepository.findUser(usertel,userpassword);
             if(user==null){
                 return "/index";
             }
+
             session.setAttribute(SystemConfig.Session_key, user);
             return "/sys/main";
 

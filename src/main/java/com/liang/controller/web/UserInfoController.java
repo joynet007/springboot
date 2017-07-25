@@ -125,7 +125,6 @@ public class UserInfoController {
     @RequestMapping(method=RequestMethod.GET , value="/del/{usertel}")
     @ResponseBody
     public void del(@PathVariable String usertel ){
-        System.out.println(usertel+"---aaa--");
         UserInfo userInfo = userRepository.findByUsertel(usertel);
         if(userInfo != null){
             userRepository.delete(userInfo);
