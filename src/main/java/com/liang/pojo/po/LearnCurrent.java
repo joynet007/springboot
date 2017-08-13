@@ -15,7 +15,8 @@ public class LearnCurrent {
     public long pkid;
     public long userid;
     public long createtime;
-    public String questiontype;
+    public String subjectid;
+    public String moniname;
     public long mcode;
 
     public long getPkid() {
@@ -42,19 +43,27 @@ public class LearnCurrent {
         this.createtime = createtime;
     }
 
-    public String getQuestiontype() {
-        return questiontype;
-    }
-
-    public void setQuestiontype(String questiontype) {
-        this.questiontype = questiontype;
-    }
-
     public long getMcode() {
         return mcode;
     }
 
     public void setMcode(long mcode) {
         this.mcode = mcode;
+    }
+
+    public String getSubjectid() {
+        return subjectid;
+    }
+
+    public void setSubjectid(String subjectid) {
+        this.subjectid = subjectid;
+    }
+
+    public String getMoniname() {
+        return moniname;
+    }
+
+    public void setMoniname(String moniname) {
+        this.moniname = moniname;
     }
 }

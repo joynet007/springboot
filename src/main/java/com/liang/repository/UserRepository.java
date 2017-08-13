@@ -24,4 +24,7 @@ public interface UserRepository extends CrudRepository<UserInfo, Integer> {
     @Query(value = "select * from tb_userinfo limit ?1,?2" ,nativeQuery=true)
     List<UserInfo> queryList(int pageNumber , int pageSize);
 
+    @Query(value="select * from tb_userinfo where userid = ?1",nativeQuery=true)
+    UserInfo findByUserid(long userid);
+
 }

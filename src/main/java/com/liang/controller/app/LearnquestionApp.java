@@ -7,9 +7,12 @@ package com.liang.controller.app;
 import com.liang.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.Choicequestion;
+import com.liang.pojo.po.LearnCurrent;
 import com.liang.pojo.po.LearnQuestion;
 import com.liang.repository.ChoicequestionRepository;
+import com.liang.repository.LearnCurrentRepository;
 import com.liang.repository.LearnQuestionRepository;
+import com.liang.service.learnservice.LearnQuestionManager;
 import com.liang.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +33,12 @@ public class LearnquestionApp {
     ChoicequestionRepository choicequestionRepository;
     @Autowired
     LearnQuestionRepository learnQuestionRepository;
+
+    @Autowired
+    LearnCurrentRepository learnCurrentRepository;
+
+    @Autowired
+    LearnQuestionManager learnQuestionManager;
 
 //    public long pkid;
 //    public long userid;
@@ -55,7 +64,6 @@ public class LearnquestionApp {
         }
 
         cq = choicequestionRepository.findChoiceQuestion(questionid);
-
         if(cq == null){
             mo.setCode(SystemConfig.mess_failed);
             mo.setMdesc("你学习的题目不存在，请重新选择一题！");
@@ -75,9 +83,28 @@ public class LearnquestionApp {
             learnQuestion.setIsmistake(ismistake);
         }
 
+        /**
+         * 创建当前模拟年份学习的对象，如果对象已经存在则修改mcode
+         */
+        LearnCurrent learnCurrent = learnCurrentRepository.findLearnCurrentObjByMoniname(userid,cq.getSublevel1(),cq.getMoniname());
+        if(learnCurrent == null){
+            System.out.println("---查出来的对象为空!!!!---");
+            learnCurrent = new LearnCurrent();
+            learnCurrent.setUserid(userid);
+            learnCurrent.setSubjectid(cq.getSublevel1());
+            learnCurrent.setMoniname(cq.getMoniname());
+            learnCurrent.setCreatetime(System.currentTimeMillis());
+            learnCurrent.setMcode(cq.getMcode());
+        }else{
+            //确保每次学习顺序正确
+            if(cq.getMcode() > learnCurrent.getMcode()){
+                learnCurrent.setMcode(cq.getMcode());
+            }
 
+        }
 
-        learnQuestionRepository.save(learnQuestion);
+       mo =  learnQuestionManager.createLearnObj(learnCurrent,learnQuestion);
+//        learnQuestionRepository.save(learnQuestion);
 
         return mo;
 
