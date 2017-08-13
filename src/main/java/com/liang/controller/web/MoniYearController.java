@@ -1,6 +1,7 @@
 package com.liang.controller.web;
 
 import com.liang.SystemConfig;
+import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.MoniYear;
 import com.liang.pojo.po.Subject;
 import com.liang.repository.MoniYearRepository;
@@ -34,6 +35,7 @@ public class MoniYearController {
 
         System.out.println("--查看历年的模拟题列表--");
         List<MoniYear> list =(List<MoniYear>)moniYearRepository.findAll();
+
 
         return list;
     }

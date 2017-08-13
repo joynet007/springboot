@@ -4,9 +4,7 @@ import com.liang.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.UserInfo;
 import com.liang.repository.UserRepository;
-import com.liang.util.GsonUtil;
-import com.liang.util.MD5Util;
-import com.liang.util.StringUtil;
+import com.liang.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,13 +26,14 @@ public class UserInfoApp {
 
     private MessageObject mo = new MessageObject(SystemConfig.mess_succ,"执行成功");
 
-    @RequestMapping(value="/dologin")
+    @RequestMapping(value="/dologin",method = RequestMethod.POST)
     public MessageObject dologin(@RequestParam(required = false) String usertel,
                                  @RequestParam(required = false) String userpassword,
                                  HttpServletRequest request){
 
         try {
 
+//            System.out.println("---usertel---"+usertel+"---"+userpassword);
             if(StringUtil.isEmpty(usertel) || StringUtil.isEmpty(userpassword)){
                 mo.setMdesc("手机号，用户密码不能为空！");
                 mo.setCode(SystemConfig.mess_succ);
@@ -42,6 +41,8 @@ public class UserInfoApp {
             }
             userpassword = MD5Util.getMD5Code(userpassword);
             UserInfo user = userRepository.findUser(usertel,userpassword);
+            user.setTokenid(TokenManager.getInstance().createToken(user.getUsertel()));
+            userRepository.save(user);
             if(user==null){
                 mo.setMdesc("手机号或者用户密码错误");
                 mo.setCode(SystemConfig.mess_succ);

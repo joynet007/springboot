@@ -20,6 +20,7 @@ public class UserInfo {
     public String mstatus;
     public String msex;
     public long createtime;
+    public String tokenid;
 
     public long getUserid() {
         return userid;
@@ -75,5 +76,13 @@ public class UserInfo {
 
     public void setMsex(String msex) {
         this.msex = msex;
+    }
+
+    public String getTokenid() {
+        return tokenid;
+    }
+
+    public void setTokenid(String tokenid) {
+        this.tokenid = tokenid;
     }
 }

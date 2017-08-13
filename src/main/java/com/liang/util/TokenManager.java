@@ -16,6 +16,14 @@ import java.util.Set;
 @Component
 public class TokenManager {
 
+    public static TokenManager instance;
+    public static TokenManager getInstance(){
+        if(instance == null){
+            instance = new TokenManager();
+        }
+        return instance;
+    }
+
     public static  HashMap<String,String> map = new HashMap<String, String>();
     public static  HashMap<String,Long> mapTime = new HashMap<String, Long>();
 

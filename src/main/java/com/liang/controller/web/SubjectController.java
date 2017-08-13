@@ -119,7 +119,7 @@ public class SubjectController {
                     Model model){
         mo = new MessageObject(SystemConfig.mess_succ,"保存成功");
 
-        Subject sub = subjectRepository.findSubject(subjectid);
+        Subject sub = subjectRepository.findSubject(parentid+"_"+subjectid);
         Subject parent = subjectRepository.findSubject(parentid);
         if(parent == null){
             mo.setCode(SystemConfig.mess_failed);
@@ -134,7 +134,7 @@ public class SubjectController {
 
         try{
             sub = new Subject();
-            sub.setSubjectid(subjectid);
+            sub.setSubjectid(parentid+"_"+subjectid);
             sub.setSubjectname(subjectname);
             sub.setCtime(System.currentTimeMillis());
             sub.setMstatus(mstatus);

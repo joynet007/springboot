@@ -80,7 +80,6 @@ public class ChoicequestionController {
                               @RequestParam(required = false) String sublevel3 ,
                               @RequestParam(required = false) String realanswer ,
                               @RequestParam(required = false) String moniname ,
-                              @RequestParam(required = false) String monicode ,
                               @RequestParam(required = false) String explain ,
                               Model model){
 
@@ -95,14 +94,29 @@ public class ChoicequestionController {
         cq.setAnswerb(answerb);
         cq.setAnswerc(answerc);
         cq.setAnswerd(answerd);
+//        int mindex = choicequestionRepository.findmaxIndex(sublevel3);
+//        cq.setMindex(mindex+1);
 
         cq.setSublevel1(sublevel1);
         cq.setSublevel2(sublevel2);
         cq.setSublevel3(sublevel3);
 
-        cq.setMoniname(moniname);
-        cq.setMonicode(monicode);
+        //如果用户选择了，年份那么就是查找年份试卷最大的一个题目
+        long maxmcode=0 ;
+        try {
+            if(!StringUtil.isEmpty(moniname)){
+                maxmcode = choicequestionRepository.findMaxMoniChoicequestion(sublevel1,moniname);
+            }else{
+                //如果用户没有选择，模拟年份，则必须选择章节
+                maxmcode = choicequestionRepository.findSubjectMaxChoicequestion(sublevel3);
+            }
+        }catch (Exception ex){
+//            ex.printStackTrace();
+        }
 
+
+        cq.setMoniname(moniname);
+        cq.setMcode((maxmcode+1));
         cq.setRealanswer(realanswer);
 
 
@@ -140,8 +154,10 @@ public class ChoicequestionController {
             mo.setMdesc("要删除的对象不存在！");
             return mo;
         }
+        ChoicequestionExplain ce = choicequestionExplainRepository.findChoiceQuestionExplain(choicequestionid);
 
-        choicequestionRepository.delete(cq);
+        choiceQuestionManager.dodel(cq,ce);
+//        choicequestionRepository.delete(cq);
 
         return mo;
     }

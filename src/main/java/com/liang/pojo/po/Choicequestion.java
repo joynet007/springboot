@@ -24,11 +24,10 @@ public class Choicequestion {
     public String answerb;
     public String answerc;
     public String answerd;
-    public String answere;
     public String realanswer;
     public long ctime;
     public String moniname;
-    public String monicode;
+    public long mcode;
 
     public String getQuestionid() {
         return questionid;
@@ -102,14 +101,6 @@ public class Choicequestion {
         this.answerd = answerd;
     }
 
-    public String getAnswere() {
-        return answere;
-    }
-
-    public void setAnswere(String answere) {
-        this.answere = answere;
-    }
-
     public long getCtime() {
         return ctime;
     }
@@ -134,11 +125,11 @@ public class Choicequestion {
         this.moniname = moniname;
     }
 
-    public String getMonicode() {
-        return monicode;
+    public long getMcode() {
+        return mcode;
     }
 
-    public void setMonicode(String monicode) {
-        this.monicode = monicode;
+    public void setMcode(long mcode) {
+        this.mcode = mcode;
     }
 }

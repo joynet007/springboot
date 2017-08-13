@@ -105,6 +105,8 @@
 
     function submitForm(){
         var choicequestionname=$("input[name=choicequestionname]");
+        var moniname=$("input[name=moniname]");
+
         var answera=$("input[name=answera]");
         var answerb=$("input[name=answerb]");
         var answerc=$("input[name=answerc]");
@@ -114,6 +116,9 @@
         $('#choicequestionAddForm').form('submit',{
             url:systemNamePath+"/choicequestion/save",
             onSubmit:function(){
+
+
+
                 if(choicequestionname.val() == null || choicequestionname.val() == '')
                 {
                     $.messager.alert('提示','题目描述不能为空！');
@@ -156,15 +161,26 @@
                     return false;
                 }
 
-                //获取下拉框选中项的value属性值
                 var sublevel1 = $('#cc1').combobox('getValue');
                 var sublevel2 = $('#cc2').combobox('getValue');
                 var sublevel3 = $('#cc3').combobox('getValue');
 
-                if(""==sublevel1 || ""==sublevel2 || ""==sublevel3 ){
-                    $.messager.alert('提示','请选择详细的科目');
-                    return false;
+                if(moniname.val() == null || moniname.val()==''){
+                    if("" == sublevel3){
+                        $.messager.alert('提示','模拟年份和科目3必须选择一个！');
+                        return false;
+                    }
                 }
+
+                //获取下拉框选中项的value属性值
+//                var sublevel1 = $('#cc1').combobox('getValue');
+//                var sublevel2 = $('#cc2').combobox('getValue');
+//                var sublevel3 = $('#cc3').combobox('getValue');
+//
+//                if(""==sublevel1 || ""==sublevel2 || ""==sublevel3 ){
+//                    $.messager.alert('提示','请选择详细的科目');
+//                    return false;
+//                }
 
 
 

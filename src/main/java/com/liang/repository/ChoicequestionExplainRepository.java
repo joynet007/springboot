@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ChoicequestionExplainRepository extends CrudRepository<ChoicequestionExplain, Integer> {
 
-    @Query(value = "select * from tb_choicequestion where questionid = ?1" ,nativeQuery=true)
-    Choicequestion findChoiceQuestion(String questionid);
+    @Query(value = "select * from tb_choicequestion_explain where questionid = ?1" ,nativeQuery=true)
+    ChoicequestionExplain findChoiceQuestionExplain(String questionid);
 
 }
