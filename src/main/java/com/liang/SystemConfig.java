@@ -19,6 +19,10 @@ public class SystemConfig {
 	public static final String sex_male = "sex.male"; //男人
 	public static final String sex_female = "sex.female";//女人
 
+
+	public static final String mistake_yes = "mistake.yes"; //错题
+	public static final String mistake_no = "mistake.no";//学会的题目
+
 	/**
      * 用户sessionkey
 	 */

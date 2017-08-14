@@ -58,5 +58,14 @@ public interface ChoicequestionRepository extends CrudRepository<Choicequestion,
     long findMaxMoniChoicequestion(String subjectid,String moniname);
 
 
+    /**
+     * 查询当前的科目下的所有习题总数
+     * 新增题目的时候题目编码自动增加一
+     * @param subjectid
+     * @return
+     */
+    @Query(value = "select count(*) from tb_choicequestion   where sublevel1 = ?1 " ,nativeQuery=true)
+    long findChoicequestionCount(String subjectid);
+
 
 }

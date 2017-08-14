@@ -9,16 +9,21 @@ import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.Choicequestion;
 import com.liang.pojo.po.LearnCurrent;
 import com.liang.pojo.po.LearnQuestion;
+import com.liang.pojo.po.UserInfo;
 import com.liang.repository.ChoicequestionRepository;
 import com.liang.repository.LearnCurrentRepository;
 import com.liang.repository.LearnQuestionRepository;
+import com.liang.repository.UserRepository;
 import com.liang.service.learnservice.LearnQuestionManager;
+import com.liang.util.GsonUtil;
 import com.liang.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
 
 /**
  * Created by liang on 2017/7/11.
@@ -40,13 +45,9 @@ public class LearnquestionApp {
     @Autowired
     LearnQuestionManager learnQuestionManager;
 
-//    public long pkid;
-//    public long userid;
-//    public String questionid;
-//    public long createtime;
-//    public String subjectid;
-//    public String ismistake;
-//    public String moniname;
+    @Autowired
+    UserRepository userRepository;
+
 
     @RequestMapping(value="/create")
     @ResponseBody
@@ -110,5 +111,55 @@ public class LearnquestionApp {
 
     }
 
+    @RequestMapping(value="/learncount")
+    @ResponseBody
+    public MessageObject learncount(@RequestParam(required = false) long userid ,
+                                    @RequestParam(required = false) String subjectid ){
+        mo = new MessageObject();
+        UserInfo userInfo =  userRepository.findByUserid(userid);
+        if(userInfo == null)
+        {
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("用户失效，校验失败！");
+            return mo;
+        }
+
+        HashMap<String,String> map = new HashMap<String,String>();
+
+        long allquestion =0;//科目下面的总条数
+        long learnall = 0 ;//已经学习总条数
+        long mistakeno = 0;//已经学会
+        long mistakeyes=0;//我的错题
+
+        try{
+            allquestion = choicequestionRepository.findChoicequestionCount(subjectid);
+        }catch (Exception ex){
+            System.out.println(this.getClass().getName()+"--没有题目数据--");
+        }
+
+        try{
+            mistakeno = learnQuestionRepository.findcountismistakeLearnquestion(userid,subjectid,SystemConfig.mistake_no);
+        }catch (Exception ex){
+            System.out.println(this.getClass().getName()+"--没有对的题目数据--");
+        }
+
+        try{
+            mistakeyes = learnQuestionRepository.findcountismistakeLearnquestion(userid,subjectid,SystemConfig.mistake_yes);
+        }catch (Exception ex){
+            System.out.println(this.getClass().getName()+"--没有错误题目数据--");
+        }
+
+        learnall = mistakeno+mistakeyes;
+
+        map.put("allquestion",allquestion+"");
+        map.put("mistakeno",mistakeno+"");
+        map.put("mistakeyes",mistakeyes+"");
+        map.put("learnall",learnall+"");
+
+        String content = GsonUtil.objTOjson(map);
+        mo.setMcontent(content);
+        return mo;
+
+    }
 
 }
