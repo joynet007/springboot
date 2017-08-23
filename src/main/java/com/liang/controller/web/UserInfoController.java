@@ -1,6 +1,6 @@
 package com.liang.controller.web;
 
-import com.liang.SystemConfig;
+import com.liang.util.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.UserInfo;
 import com.liang.repository.UserRepository;
@@ -31,7 +31,7 @@ public class UserInfoController {
      */
     @RequestMapping(value="/startpage" , method = RequestMethod.GET)
     public String startpage(){
-        return "/userinfo/userinfolist";
+        return "userinfo/userinfolist";
     }
 
 
@@ -41,7 +41,7 @@ public class UserInfoController {
      */
     @RequestMapping(value="/add" , method = RequestMethod.GET)
     public String add(){
-        return "/userinfo/userino-add";
+        return "userinfo/userino-add";
     }
 
     /**

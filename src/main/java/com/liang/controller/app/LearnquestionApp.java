@@ -4,7 +4,7 @@ package com.liang.controller.app;
  * Created by liang on 2017/8/13.
  */
 
-import com.liang.SystemConfig;
+import com.liang.util.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.Choicequestion;
 import com.liang.pojo.po.LearnCurrent;

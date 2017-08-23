@@ -67,5 +67,12 @@ public interface ChoicequestionRepository extends CrudRepository<Choicequestion,
     @Query(value = "select count(*) from tb_choicequestion   where sublevel1 = ?1 " ,nativeQuery=true)
     long findChoicequestionCount(String subjectid);
 
+    /**
+     * 根据时间倒序排列
+     * @return
+     */
+    @Query(value = "select * from tb_choicequestion  order by ctime desc" ,nativeQuery=true)
+    List<Choicequestion> findallobjes();
+
 
 }

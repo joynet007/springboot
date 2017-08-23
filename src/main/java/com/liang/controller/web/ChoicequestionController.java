@@ -1,11 +1,10 @@
 package com.liang.controller.web;
 
-import com.liang.SystemConfig;
+import com.liang.util.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.Choicequestion;
 import com.liang.pojo.po.ChoicequestionExplain;
 import com.liang.pojo.po.Subject;
-import com.liang.pojo.po.UserInfo;
 import com.liang.repository.ChoicequestionExplainRepository;
 import com.liang.repository.ChoicequestionRepository;
 import com.liang.repository.SubjectRepository;
@@ -47,14 +46,14 @@ public class ChoicequestionController {
 
     @RequestMapping(value="/startpage")
     public String startpage(){
-        return "/choicequestion/choicequestion-list";
+        return "choicequestion/choicequestion-list";
     }
 
 
     @RequestMapping(value="/viewlist")
     @ResponseBody
     public List<Choicequestion> viewlist(){
-        List<Choicequestion> list= (List<Choicequestion>) choicequestionRepository.findAll();
+        List<Choicequestion> list= (List<Choicequestion>) choicequestionRepository.findallobjes();
         return list;
     }
 
@@ -65,7 +64,7 @@ public class ChoicequestionController {
         if(subjects!=null){
             model.addAttribute("subjects",subjects);
         }
-        return "/choicequestion/choicequestion-add";
+        return "choicequestion/choicequestion-add";
     }
 
     @RequestMapping(value="/save" , method = RequestMethod.POST)
@@ -164,6 +163,6 @@ public class ChoicequestionController {
 
     @RequestMapping(value="/view")
     public String view(){
-        return "/question/add";
+        return "question/add";
     }
 }

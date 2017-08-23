@@ -18,7 +18,8 @@
     <div id ="index_div" style="margin-top:100px;margin-left:100px;">
         <div class="easyui-panel" title="用户登录" style="width:400px;">
             <div style="padding:10px 0 10px 60px">
-                <form id="indexForm" method="post" action="/sys/dologin">
+                <form id="indexForm" method="post" th:action="@{/sys/dologin}" action="#">
+                    <!--<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">-->
                     <table>
                         <tr>
                             <td>登录用户名:</td>

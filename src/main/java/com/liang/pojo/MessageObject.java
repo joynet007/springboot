@@ -1,9 +1,6 @@
 package com.liang.pojo;
 
-import com.liang.SystemConfig;
-import com.liang.pojo.po.Subject;
-
-import java.util.List;
+import com.liang.util.SystemConfig;
 
 /**
  * Created by liang on 2017/7/11.

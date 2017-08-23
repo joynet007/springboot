@@ -1,17 +1,15 @@
 package com.liang.controller.app;
 
-import com.liang.SystemConfig;
+import com.liang.util.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.UserInfo;
 import com.liang.repository.UserRepository;
 import com.liang.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * Created by liang on 2017/7/11.

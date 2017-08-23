@@ -10,59 +10,17 @@
                 >
                 </select>
             </td>
-            <td>考题编号：</td>
-            <td>
-                <input class="easyui-textbox" name="monicode" data-options="multiline:false"  style="width:100px;"></input>
-            </td>
-        </tr>
-        <tr>
-            <td>题目描述：</td>
-            <td th:colspan="3">
-                <input class="easyui-textbox" name="choicequestionname" data-options="multiline:true" style="width:800px;height:100px"></input>
-            </td>
-        </tr>
-        <tr>
-            <td>答案A：</td>
-            <td th:colspan="3">
-                <input class="easyui-textbox" name="answera" data-options="multiline:true" style="width:800px;height:40px"></input>
-            </td>
-        </tr>
-        <tr>
-            <td>答案B：</td>
-            <td th:colspan="3">
-                <input class="easyui-textbox" name="answerb" data-options="multiline:true" style="width:800px;height:40px"></input>
-            </td>
-        </tr>
-        <tr>
-            <td>答案C：</td>
-            <td th:colspan="3">
-                <input class="easyui-textbox" name="answerc" data-options="multiline:true" style="width:800px;height:40px"></input>
-            </td>
-        </tr>
-        <tr>
-            <td>答案D：</td>
-            <td th:colspan="3">
-                <input class="easyui-textbox" name="answerd" data-options="multiline:true" style="width:800px;height:40px"></input>
-            </td>
-        </tr>
-        <tr>
-            <td>参考答案：</td>
-            <td th:colspan="3">
-                <select class="easyui-combobox" name="realanswer" style="width: 300px">
-                    <option value="" selected="true">--请选择--</option>
-                    <option value="A"> A </option>
-                    <option value="B"> B </option>
-                    <option value="C"> C </option>
-                    <option value="D"> D </option>
-                </select>
-            </td>
+            <!--<td>考题编号：</td>-->
+            <!--<td>-->
+                <!--&lt;!&ndash;<input class="easyui-textbox" name="monicode" data-options="multiline:false"  style="width:100px;display: none"></input>&ndash;&gt;-->
+            <!--</td>-->
         </tr>
         <tr>
             <td>所属科目</td>
-            <td  id="cslectid" th:colspan="3">
+            <td  id="cslectid">
                 <!--<select id="sb1" style="width: 180px" name="sublevel1">-->
-                    <!--<option value="">&#45;&#45;请选择&#45;&#45;</option>-->
-                    <!--<option th:each="subject:${subjects}"  th:value="${subject.subjectid}" th:text="${subject.subjectname}" ></option>-->
+                <!--<option value="">&#45;&#45;请选择&#45;&#45;</option>-->
+                <!--<option th:each="subject:${subjects}"  th:value="${subject.subjectid}" th:text="${subject.subjectname}" ></option>-->
                 <!--</select>-->
                 <!--<select id="sb2" style="width: 180px" name="sublevel2"></select>-->
                 <!--<select id="sb3" style="width: 180px" name="sublevel3"></select>-->
@@ -76,20 +34,63 @@
                 },panelHeight:'auto' "
                 />
                 <input id="cc2" class="easyui-combobox" style="width: 180px" name="sublevel2"
-                        data-options="valueField:'subjectid',textField:'subjectname',
+                       data-options="valueField:'subjectid',textField:'subjectname',
                         onSelect:function(rec){
                             var url = '/web/subject/findSubjectBypid/'+rec.subjectid;
                             $('#cc3').combobox('reload', url);
                         },panelHeight:'auto' "
                 />
                 <input id="cc3" class="easyui-combobox" style="width: 180px" name="sublevel3"
-                        data-options="valueField:'subjectid',textField:'subjectname'" >
+                       data-options="valueField:'subjectid',textField:'subjectname'" >
                 </input>
             </td>
         </tr>
         <tr>
+            <td>题目描述：</td>
+            <td >
+                <input class="easyui-textbox" name="choicequestionname" data-options="multiline:true" style="width:800px;height:100px"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>答案A：</td>
+            <td >
+                <input class="easyui-textbox" name="answera" data-options="multiline:true" style="width:800px;height:40px"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>答案B：</td>
+            <td >
+                <input class="easyui-textbox" name="answerb" data-options="multiline:true" style="width:800px;height:40px"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>答案C：</td>
+            <td >
+                <input class="easyui-textbox" name="answerc" data-options="multiline:true" style="width:800px;height:40px"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>答案D：</td>
+            <td >
+                <input class="easyui-textbox" name="answerd" data-options="multiline:true" style="width:800px;height:40px"></input>
+            </td>
+        </tr>
+        <tr>
+            <td>参考答案：</td>
+            <td >
+                <select class="easyui-combobox" name="realanswer" style="width: 300px">
+                    <option value="" selected="true">--请选择--</option>
+                    <option value="A"> A </option>
+                    <option value="B"> B </option>
+                    <option value="C"> C </option>
+                    <option value="D"> D </option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
             <td>习题详解：</td>
-            <td th:colspan="3">
+            <td >
                 <input class="easyui-textbox" name="explain" data-options="multiline:true" style="width:800px;height:100px"></input>
             </td>
         </tr>
@@ -162,7 +163,7 @@
                 }
 
                 var sublevel1 = $('#cc1').combobox('getValue');
-                var sublevel2 = $('#cc2').combobox('getValue');
+//                var sublevel2 = $('#cc2').combobox('getValue');
                 var sublevel3 = $('#cc3').combobox('getValue');
 
                 if(moniname.val() == null || moniname.val()==''){
@@ -170,6 +171,11 @@
                         $.messager.alert('提示','模拟年份和科目3必须选择一个！');
                         return false;
                     }
+                }
+
+                if(sublevel1 == null || sublevel1 ==''){
+                    $.messager.alert('提示','请选择（一级）科目！');
+                    return false;
                 }
 
                 //获取下拉框选中项的value属性值

@@ -1,6 +1,6 @@
 package com.liang.service.subjectservice;
 
-import com.liang.SystemConfig;
+import com.liang.util.SystemConfig;
 import com.liang.pojo.po.Subject;
 import com.liang.repository.SubjectRepository;
 import com.liang.util.GsonUtil;

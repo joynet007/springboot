@@ -1,6 +1,6 @@
 package com.liang.service.learnservice.impl;
 
-import com.liang.SystemConfig;
+import com.liang.util.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.LearnCurrent;
 import com.liang.pojo.po.LearnQuestion;

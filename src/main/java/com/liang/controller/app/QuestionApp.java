@@ -1,6 +1,6 @@
 package com.liang.controller.app;
 
-import com.liang.SystemConfig;
+import com.liang.util.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.Choicequestion;
 import com.liang.pojo.po.ChoicequestionExplain;
@@ -10,7 +10,6 @@ import com.liang.repository.ChoicequestionRepository;
 import com.liang.repository.LearnCurrentRepository;
 import com.liang.repository.UserRepository;
 import com.liang.util.GsonUtil;
-import com.liang.util.StringUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +63,7 @@ public class QuestionApp {
                                        @RequestParam(required = false) long mcode ){
 //        System.out.println(subjectid+"--"+mindex);
         mo = new MessageObject();
+        Choicequestion question;
         //try catch 如果没有数据查询为null 报异常，如果是异常暂定为无数据
         long maxcode = 0;
         try{
@@ -75,11 +75,14 @@ public class QuestionApp {
         }
 
         if(maxcode < mcode ){
+            question= (Choicequestion) choicequestionRepository.findSubjectChoiceQuestion(subjectid,mcode);
             mo.setCode(SystemConfig.mess_failed);
             mo.setMdesc("已经是最后一道题目！");
+            String content = GsonUtil.objTOjson(question);
+            mo.setMcontent(content);
             return mo;
         }
-        Choicequestion question= (Choicequestion) choicequestionRepository.findSubjectChoiceQuestion(subjectid,mcode);
+        question= (Choicequestion) choicequestionRepository.findSubjectChoiceQuestion(subjectid,mcode);
         if(question!=null){
             String content = GsonUtil.objTOjson(question);
             mo.setMcontent(content);

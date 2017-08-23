@@ -1,14 +1,9 @@
 package com.liang.controller.web;
 
-import com.liang.SystemConfig;
-import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.MoniYear;
-import com.liang.pojo.po.Subject;
 import com.liang.repository.MoniYearRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 

@@ -1,4 +1,4 @@
-package com.liang;
+package com.liang.util;
 
 /**
  * @author: joynet007@163.com

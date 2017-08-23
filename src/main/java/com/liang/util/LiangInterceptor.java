@@ -1,4 +1,4 @@
-package com.liang;
+package com.liang.util;
 
 import com.liang.util.TokenManager;
 import org.springframework.web.servlet.HandlerInterceptor;

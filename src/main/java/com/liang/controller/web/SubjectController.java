@@ -1,6 +1,6 @@
 package com.liang.controller.web;
 
-import com.liang.SystemConfig;
+import com.liang.util.SystemConfig;
 import com.liang.pojo.MessageObject;
 import com.liang.pojo.po.Subject;
 import com.liang.repository.SubjectRepository;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -40,7 +39,7 @@ public class SubjectController {
 
     @RequestMapping(value="/startpage")
     public String startpage(){
-        return "/subject/subject-main";
+        return "subject/subject-main";
     }
 
     /**
@@ -54,7 +53,7 @@ public class SubjectController {
         if(parent != null){
             model.addAttribute("parent",parent);
         }
-        return "/subject/subject-add";
+        return "subject/subject-add";
     }
 
     @RequestMapping(value="/delete/{subjectid}")
@@ -96,7 +95,7 @@ public class SubjectController {
         }
 
         model.addAttribute("subject",subject);
-        return "/subject/subject-view";
+        return "subject/subject-view";
     }
 
 
