@@ -66,7 +66,12 @@ sys.addTabs=function(title,id){
 		}else if("choicequestion" == id){
             var url = systemNamePath+"/choicequestion/startpage";
             sys.createTab(title,url);
+        }else if("hisquestion" == id){
+            var url = systemNamePath+"/hisquestion/startpage";
+            sys.createTab(title,url);
         }
+
+
 
 
 		else if("daywork" == id){

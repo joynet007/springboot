@@ -27,7 +27,7 @@ public class Choicequestion {
     public String realanswer;
     public long ctime;
     public String moniname;
-    public long mcode;
+    public long mcode;//序号
 
     public String getQuestionid() {
         return questionid;

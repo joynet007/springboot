@@ -3,16 +3,20 @@
         <tr>
             <td>所属考年：</td>
             <td>
-                <select id="cc4" class="easyui-combobox" style="width: 180px" name="moniname" data-options="
-                valueField: 'moniname',
-                textField: 'moniname',
-                url: '/web/moniyear/viewlist'"
-                >
+                <!--<select id="cc4" class="easyui-combobox" style="width: 180px" name="moniname" data-options="-->
+                <!--valueField: 'moniname',-->
+                <!--textField: 'moniname',-->
+                <!--url: '/web/moniyear/viewlist'"-->
+                <!--&gt;-->
+                <!--</select>-->
+                <select class="easyui-combobox" id="cc4" name="moniname"  >
+                    <option value="2016年下半年">2016年下半年</option>
                 </select>
+                <!--<select id="cc4" class="easyui-combobox" style="width: 180px" name="moniname" value="2016上半年" />-->
             </td>
             <!--<td>考题编号：</td>-->
             <!--<td>-->
-                <!--&lt;!&ndash;<input class="easyui-textbox" name="monicode" data-options="multiline:false"  style="width:100px;display: none"></input>&ndash;&gt;-->
+            <!--&lt;!&ndash;<input class="easyui-textbox" name="monicode" data-options="multiline:false"  style="width:100px;display: none"></input>&ndash;&gt;-->
             <!--</td>-->
         </tr>
         <tr>
@@ -25,14 +29,21 @@
                 <!--<select id="sb2" style="width: 180px" name="sublevel2"></select>-->
                 <!--<select id="sb3" style="width: 180px" name="sublevel3"></select>-->
 
-                <input id="cc1" class="easyui-combobox" style="width: 180px" name="sublevel1"
-                       data-options="valueField: 'subjectid',textField: 'subjectname',
-                        url: '/web/subject/findSubjectBypid/rootid',
-                        onSelect: function(rec){
-                            var url = '/web/subject/findSubjectBypid/'+rec.subjectid;
-                            $('#cc2').combobox('reload', url);
-                },panelHeight:'auto' "
-                />
+                <select class="easyui-combobox" id="cc1" name="sublevel1"  >
+                    <option value="1002">信息系统项目管理师</option>
+                </select>
+
+
+                <!--<input id="cc1" class="easyui-combobox" style="width: 180px" name="sublevel1"-->
+                       <!--data-options="valueField: 'subjectid',textField: 'subjectname',-->
+                        <!--url: '/web/subject/findSubjectBypid/rootid',-->
+                        <!--onSelect: function(rec){-->
+                            <!--var url = '/web/subject/findSubjectBypid/'+rec.subjectid;-->
+                            <!--$('#cc2').combobox('reload', url);-->
+                        <!--},onLoadSuccess:function(){-->
+                            <!--$('#cc1').combobox('selectIndex',1);-->
+                        <!--},panelHeight:'auto' "-->
+                <!--/>-->
                 <input id="cc2" class="easyui-combobox" style="width: 180px" name="sublevel2"
                        data-options="valueField:'subjectid',textField:'subjectname',
                         onSelect:function(rec){

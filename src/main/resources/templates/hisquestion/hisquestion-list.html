@@ -1,0 +1,73 @@
+<script th:src="@{/js/hisquestion/hisquestion.js}"></script>
+
+<div id="p" class="easyui-panel" title="选择信息" style="width: auto;height: 80px;padding-top: 10px;padding-left: 20px;">
+    请选择科目：
+    <input id="subjectid" class="easyui-combobox" style="width: 180px" name="sublevel1"
+    data-options="valueField: 'subjectid',textField: 'subjectname',
+    url: '/web/subject/findSubjectBypid/rootid',panelHeight:'auto' "/>
+    请选择年份：
+    <select id="moniname" class="easyui-combobox" style="width: 180px" name="moniname" data-options="
+    valueField: 'moniname',
+    textField: 'moniname',
+    url: '/web/moniyear/viewlist'"
+    >
+    </select>
+    <a href="javascript:tableload();" class="easyui-linkbutton" style="margin-left: 10px" iconCls="icon-search">查询</a>
+    <a href="javascript:addq();" class="easyui-linkbutton" style="margin-left: 10px" iconCls="icon-add">添加</a>
+</div>
+<table id="hisquestionlist" class="easyui-datagrid" title="科目列表" style="width: auto;height:auto;"
+       data-options="rownumbers:true,singleSelect:true,url:'/web/hisquestion/viewlist',method:'get',toolbar:hisquestion.toolbar">
+    <thead>
+    <tr>
+        <th data-options="field:'questionid',width:80,hidden:true">编码</th>
+        <th data-options="field:'name',width:500">题目名称</th>
+        <th data-options="field:'moniname',width:100">年份</th>
+        <th data-options="field:'sublevel1',width:100">科目</th>
+        <th data-options="field:'mcode',width:100">序号号</th>
+        <th data-options="field:'ctime',width:140,formatter:baseutil.formatter_time">时间</th>
+    </tr>
+    </thead>
+</table>
+<div id='hisquestion_win_add'></div>
+
+<script>
+    function tableload(){
+        var subjectid = $('#subjectid').combobox('getValue');
+        var moniname = $('#moniname').combobox('getValue');
+
+        if(subjectid == null || subjectid == ''){
+            $.messager.alert('提示','请选择详细的科目');
+            return false;
+        }
+        if(moniname == null || moniname == ''){
+            $.messager.alert('提示','请选择模拟年份');
+            return false;
+        }
+
+        $('#hisquestionlist').datagrid('load',{
+            subjectid: subjectid,
+            moniname: moniname
+        });
+
+    }
+
+    function addq(){
+        var subjectid = $('#subjectid').combobox('getValue');
+        var subjectName = $('#subjectid').combobox('getText');
+        var moniname = $('#moniname').combobox('getValue');
+
+
+
+        if(subjectid == null || subjectid == ''){
+            $.messager.alert('提示','请选择详细的科目');
+            return false;
+        }
+        if(moniname == null || moniname == ''){
+            $.messager.alert('提示','请选择模拟年份');
+            return false;
+        }
+
+        hisquestion.addquestion(subjectid,subjectName,moniname);
+    }
+
+</script>

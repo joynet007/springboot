@@ -66,6 +66,7 @@ public class UserInfoApp {
                                         @RequestParam(required = false) String userpassword ,
                                         @RequestParam(required = false) String username ,
                                         Model model){
+        System.out.println("usertel"+usertel);
         UserInfo userInfo =  userRepository.findByUsertel(usertel);
         MessageObject messageObject = new MessageObject(SystemConfig.mess_succ,"执行成功！");
         try {
@@ -73,12 +74,20 @@ public class UserInfoApp {
                 userInfo = new UserInfo();
                 userpassword = MD5Util.getMD5Code(userpassword);
                 userInfo.setUserpassword( userpassword );
-                userInfo.setUsertel(usertel);
+                userInfo.setUsertel(usertel.trim());
                 userInfo.setCreatetime(System.currentTimeMillis());
                 userInfo.setMstatus(SystemConfig.mstatus_normal);
                 userInfo.setUsername(username);
                 userInfo.setMsex(SystemConfig.sex_male);
+                userInfo.setTokenid(TokenManager.getInstance().createToken(usertel.trim()));
                 userRepository.save(userInfo);
+
+                userInfo = userRepository.findByUsertel(usertel.trim());
+
+                String content = GsonUtil.objTOjson(userInfo);
+                System.out.println("***="+content);
+                messageObject.setMcontent(content);
+
             }else{
                 messageObject.setCode(SystemConfig.mess_failed);
                 messageObject.setMdesc("您已经完成注册,请直接去登录！");
@@ -91,6 +100,31 @@ public class UserInfoApp {
             messageObject.setMdesc("创建失败，执行异常！");
             return messageObject;
         }
+    }
+
+    /**
+     * 用户退出
+     * @param userid
+     * @param tokenid
+     * @return
+     */
+    @RequestMapping(value="/doout", method = RequestMethod.POST)
+    @ResponseBody
+    public MessageObject doout(@RequestParam(required = false) long userid,
+                               @RequestParam(required = false) String tokenid){
+        System.out.println("tokenid"+tokenid);
+        UserInfo userInfo =  userRepository.findByUserInfoBytokenid(userid,tokenid);
+        MessageObject messageObject = new MessageObject(SystemConfig.mess_succ,"执行成功！");
+        try {
+            if(userInfo != null){
+               userInfo.setTokenid("");
+               userRepository.save(userInfo);
+            }
+            return messageObject;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return messageObject;
     }
 
 }

@@ -39,13 +39,13 @@ public class SystemController {
             }
             if(StringUtil.isEmpty(usertel) || StringUtil.isEmpty(userpassword))
             {
-                modelAndView.setViewName("idnex");
+                modelAndView.setViewName("index");
                 return modelAndView;
             }
             UserInfo user =  userRepository.findByUsertel(usertel);
             if(null == user)
             {
-                modelAndView.setViewName("idnex");
+                modelAndView.setViewName("index");
                 return modelAndView;
             }
 
@@ -54,7 +54,7 @@ public class SystemController {
 
             user = userRepository.findUser(usertel,userpassword);
             if(user==null){
-                modelAndView.setViewName("idnex");
+                modelAndView.setViewName("index");
                 return modelAndView;
             }
 
@@ -64,7 +64,7 @@ public class SystemController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            modelAndView.setViewName("idnex");
+            modelAndView.setViewName("index");
             return modelAndView;
         }
     }

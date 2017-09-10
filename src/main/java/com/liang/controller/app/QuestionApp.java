@@ -155,14 +155,22 @@ public class QuestionApp {
             //用户暂时还没有学习
             currtyCode =0;
         }
+        Choicequestion question;
 
         if(maxmonicode <= currtyCode ){
             mo.setCode(SystemConfig.mess_failed);
             mo.setMdesc("恭喜您，你很厉害，已经学习完了整个练习！");
+            //查询最后一题
+            question= (Choicequestion) choicequestionRepository.findMoniChoiceQuestion(subjectid,moniname,maxmonicode);
+            if(question!=null){
+                String content = GsonUtil.objTOjson(question);
+                System.out.println("***="+content);
+                mo.setMcontent(content);
+            }
             return mo;
         }
 
-        Choicequestion question= (Choicequestion) choicequestionRepository.findMoniChoiceQuestion(subjectid,moniname,++currtyCode);
+        question= (Choicequestion) choicequestionRepository.findMoniChoiceQuestion(subjectid,moniname,++currtyCode);
         if(question!=null){
             String content = GsonUtil.objTOjson(question);
             System.out.println("***="+content);

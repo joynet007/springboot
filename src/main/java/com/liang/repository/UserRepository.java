@@ -27,4 +27,7 @@ public interface UserRepository extends CrudRepository<UserInfo, Integer> {
     @Query(value="select * from tb_userinfo where userid = ?1",nativeQuery=true)
     UserInfo findByUserid(long userid);
 
+    @Query(value="select * from tb_userinfo where userid = ?1 and tokenid=?2",nativeQuery=true)
+    UserInfo findByUserInfoBytokenid(long userid,String tokenid);
+
 }

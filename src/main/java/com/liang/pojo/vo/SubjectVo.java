@@ -1,23 +1,11 @@
-package com.liang.pojo.po;
+package com.liang.pojo.vo;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
- * Created by liang on 2017/6/9.
- * 科目
- *
- * 软件工程
- * 信息系统集成
- * 软件工程师
+ * Created by liang on 2017/9/9.
  */
-
-@Entity
-@Table(name="tb_subject")
-public class Subject {
-    @Id
+public class SubjectVo {
     public String subjectid;
     public String subjectname;
     public String mstatus;
@@ -25,8 +13,7 @@ public class Subject {
     public long ctime;
     public int mlevel;
 
-    @Transient
-    public boolean selected = false;
+    public String selected="false";
 
     public String getSubjectid() {
         return subjectid;
@@ -76,11 +63,11 @@ public class Subject {
         this.mlevel = mlevel;
     }
 
-    public boolean getSelected() {
+    public String getSelected() {
         return selected;
     }
 
-    public void setSelected(boolean selected) {
+    public void setSelected(String selected) {
         this.selected = selected;
     }
 }
