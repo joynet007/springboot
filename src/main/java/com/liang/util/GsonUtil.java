@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
@@ -143,6 +144,28 @@ public class GsonUtil {
         return map;
     }
 
+
+    public static HashMap<String,String> tomap(Object c){
+        HashMap<String,String> map = new HashMap<String,String>();
+        Field[] fields=c.getClass().getDeclaredFields();
+        for(int i=0;i<fields.length;i++){
+            String key =fields[i].getName()+"";
+
+            try {
+                String value = BeanUtils.getProperty(c, key);
+
+                map.put(key,value);
+
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+        return map;
+    }
 
     /**
      * 把对象处理成 JSON 的样式字符串 返回的字符串是：字段：值

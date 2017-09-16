@@ -48,4 +48,10 @@ public interface LearnCurrentRepository extends CrudRepository<LearnCurrent, Int
      */
     @Query(value = "select * from tb_learncurrent where userid = ?1 and subjectid = ?2 and moniname = ?3 " ,nativeQuery=true)
     LearnCurrent findLearnCurrentObjByMoniname(long userid,String subjectid,String moniname);
+
+
+//    select * from ruankao.tb_learnquestion where pkid = (select max(pkid)  FROM ruankao.tb_learnquestion where ismistake='mistake.yes');
+
+
+
 }

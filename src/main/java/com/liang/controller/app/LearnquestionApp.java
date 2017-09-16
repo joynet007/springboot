@@ -18,10 +18,7 @@ import com.liang.service.learnservice.LearnQuestionManager;
 import com.liang.util.GsonUtil;
 import com.liang.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -49,6 +46,15 @@ public class LearnquestionApp {
     UserRepository userRepository;
 
 
+    /**
+     * 每次用户在界面上，选择答案的时候调用。
+     * 创建一个学习的题目（可能学习的结果是错误或者正确）
+     * 创建当前学习的题目对象
+     * @param userid
+     * @param questionid
+     * @param ismistake
+     * @return
+     */
     @RequestMapping(value="/create")
     @ResponseBody
     public MessageObject createlearnquestion(@RequestParam(required = false) long userid ,
@@ -111,6 +117,13 @@ public class LearnquestionApp {
 
     }
 
+    /**
+     * 查询当前用户的 学习题目的数量
+     * 包括此科目的总题目数量、此用户已经学习的数量、错误的题数、正确的题目数量
+     * @param userid
+     * @param subjectid
+     * @return
+     */
     @RequestMapping(value="/learncount")
     @ResponseBody
     public MessageObject learncount(@RequestParam(required = false) long userid ,
@@ -161,5 +174,186 @@ public class LearnquestionApp {
         return mo;
 
     }
+
+
+    /**
+     * 这个科目下查找，当前用户的错误的题目，不是列表是一个一个来
+     * 创建时间最大的那个
+     *
+     * @param userid
+     * @param subjectid
+     * @return
+     */
+    @RequestMapping(value="/finduserMistkeQuestion")
+    @ResponseBody
+    public MessageObject finduserMistkeQuestion(@RequestParam(required = false) long userid ,
+                                    @RequestParam(required = false) String subjectid ){
+        mo = new MessageObject();
+        UserInfo userInfo =  userRepository.findByUserid(userid);
+        if(userInfo == null)
+        {
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("用户失效，校验失败！");
+            return mo;
+        }
+
+        LearnQuestion lq = learnQuestionRepository.findLearnquestionMaxIsMitake(userid,subjectid);
+        Choicequestion cq;
+
+        if(lq!=null){
+            cq = choicequestionRepository.findChoiceQuestion(lq.questionid);
+            if(cq!=null){
+
+                long mistakeyes = 0;
+                try{
+                   mistakeyes = learnQuestionRepository.findcountismistakeLearnquestion(userid,subjectid,SystemConfig.mistake_yes);
+                }catch (Exception ex){
+                    System.out.println(this.getClass().getName()+"--没有错误题目数据--");
+                }
+
+                HashMap<String,String> map = GsonUtil.tomap(cq);
+                map.put("pkid",lq.getPkid()+"");
+                map.put("mistakeyes",mistakeyes+"");
+                String content = GsonUtil.objTOjson(map);
+                System.out.println("=======AAAAA======="+content);
+                mo.setMcontent(content);
+            }else{
+                mo.setCode(SystemConfig.mess_failed);
+                mo.setMdesc("查询题目失败！");
+                return mo;
+            }
+        }else{
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("您已经没有错误的题目了！");
+            return mo;
+        }
+
+        return mo;
+
+    }
+
+
+    /**
+     * 这个科目下查找，当前用户的正在查看错题目，的下一个题目，不是列表,是一个一个来
+     * 创建时间最大的那个
+     * @param userid
+     * @param subjectid
+     * @return
+     */
+    @RequestMapping(value="/findNextLearnquestionMaxIsMitake")
+    @ResponseBody
+    public MessageObject findNextLearnquestionMaxIsMitake(@RequestParam(required = false) String userid ,
+                                                          @RequestParam(required = false) String subjectid,
+                                                          @RequestParam(required = false) String pkid ){
+
+        System.out.println(userid+"--"+subjectid+"--"+pkid);
+
+        mo = new MessageObject();
+        UserInfo userInfo =  userRepository.findByUserid(Long.parseLong(userid));
+        if(userInfo == null)
+        {
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("用户失效，校验失败！");
+            return mo;
+        }
+
+
+        LearnQuestion lq = learnQuestionRepository.findNextLearnquestionMaxIsMitake(Long.parseLong(userid),subjectid,Long.parseLong(pkid));
+
+        Choicequestion cq;
+
+        if(lq!=null){
+            cq = choicequestionRepository.findChoiceQuestion(lq.questionid);
+            if(cq!=null){
+
+                long mistakeyes = 0;
+                try{
+                    mistakeyes = learnQuestionRepository.findcountismistakeLearnquestion(Long.parseLong(userid),subjectid,SystemConfig.mistake_yes);
+                }catch (Exception ex){
+                    System.out.println(this.getClass().getName()+"--没有错误题目数据--");
+                }
+
+                HashMap<String,String> map = GsonUtil.tomap(cq);
+                map.put("pkid",lq.getPkid()+"");
+                map.put("mistakeyes",mistakeyes+"");
+                String content = GsonUtil.objTOjson(map);
+                mo.setMcontent(content);
+            }else{
+                mo.setCode(SystemConfig.mess_failed);
+                mo.setMdesc("已经是最后一题了。");
+                return mo;
+            }
+        }else{
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("已经是最后一题了！");
+            return mo;
+        }
+
+        return mo;
+
+    }
+
+    /**
+     * 这个科目下查找，当前用户的正在查看错题目，的下一个题目，不是列表,是一个一个来
+     * 创建时间最大的那个
+     * @param userid
+     * @param subjectid
+     * @return
+     */
+    @RequestMapping(value="/findUpLearnquestionMaxIsMitake")
+    @ResponseBody
+    public MessageObject findUpLearnquestionMaxIsMitake(@RequestParam(required = false) String userid ,
+                                                          @RequestParam(required = false) String subjectid,
+                                                          @RequestParam(required = false) String pkid ){
+
+        System.out.println(userid+"--"+subjectid+"--"+pkid);
+
+        mo = new MessageObject();
+        UserInfo userInfo =  userRepository.findByUserid(Long.parseLong(userid));
+        if(userInfo == null)
+        {
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("用户失效，校验失败！");
+            return mo;
+        }
+
+
+        LearnQuestion lq = learnQuestionRepository.findUpLearnquestionMaxIsMitake(Long.parseLong(userid),subjectid,Long.parseLong(pkid));
+
+        Choicequestion cq;
+
+        if(lq!=null){
+            cq = choicequestionRepository.findChoiceQuestion(lq.questionid);
+            if(cq!=null){
+
+                long mistakeyes = 0;
+                try{
+                    mistakeyes = learnQuestionRepository.findcountismistakeLearnquestion(Long.parseLong(userid),subjectid,SystemConfig.mistake_yes);
+                }catch (Exception ex){
+                    System.out.println(this.getClass().getName()+"--没有错误题目数据--");
+                }
+
+                HashMap<String,String> map = GsonUtil.tomap(cq);
+                map.put("pkid",lq.getPkid()+"");
+                map.put("mistakeyes",mistakeyes+"");
+                String content = GsonUtil.objTOjson(map);
+                mo.setMcontent(content);
+            }else{
+                mo.setCode(SystemConfig.mess_failed);
+                mo.setMdesc("题目没有查到。");
+                return mo;
+            }
+        }else{
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("已经是第一题目了！");
+            return mo;
+        }
+
+        return mo;
+
+    }
+
+
+
 
 }
