@@ -13,7 +13,7 @@
     >
     </select>
     <a href="javascript:tableload();" class="easyui-linkbutton" style="margin-left: 10px" iconCls="icon-search">查询</a>
-    <a href="javascript:addq();" class="easyui-linkbutton" style="margin-left: 10px" iconCls="icon-add">添加</a>
+    <!--<a href="javascript:addq();" class="easyui-linkbutton" style="margin-left: 10px" iconCls="icon-add">添加</a>-->
 </div>
 <table id="hisquestionlist" class="easyui-datagrid" title="科目列表" style="width: auto;height:auto;"
        data-options="rownumbers:true,singleSelect:true,url:'/web/hisquestion/viewlist',method:'get',toolbar:hisquestion.toolbar">
@@ -28,7 +28,7 @@
     </tr>
     </thead>
 </table>
-<div id='hisquestion_win_add'></div>
+<!--<div id='hisquestion_win_add'></div>-->
 
 <script>
     function tableload(){
@@ -51,23 +51,23 @@
 
     }
 
-    function addq(){
-        var subjectid = $('#subjectid').combobox('getValue');
-        var subjectName = $('#subjectid').combobox('getText');
-        var moniname = $('#moniname').combobox('getValue');
-
-
-
-        if(subjectid == null || subjectid == ''){
-            $.messager.alert('提示','请选择详细的科目');
-            return false;
-        }
-        if(moniname == null || moniname == ''){
-            $.messager.alert('提示','请选择模拟年份');
-            return false;
-        }
-
-        hisquestion.addquestion(subjectid,subjectName,moniname);
-    }
+//    function addq(){
+//        var subjectid = $('#subjectid').combobox('getValue');
+//        var subjectName = $('#subjectid').combobox('getText');
+//        var moniname = $('#moniname').combobox('getValue');
+//
+//
+//
+//        if(subjectid == null || subjectid == ''){
+//            $.messager.alert('提示','请选择详细的科目');
+//            return false;
+//        }
+//        if(moniname == null || moniname == ''){
+//            $.messager.alert('提示','请选择模拟年份');
+//            return false;
+//        }
+//
+//        hisquestion.addquestion(subjectid,subjectName,moniname);
+//    }
 
 </script>

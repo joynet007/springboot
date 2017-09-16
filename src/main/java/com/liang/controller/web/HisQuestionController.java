@@ -20,6 +20,9 @@ import java.util.List;
 
 /**
  * Created by liang on 2017/9/8.
+ *
+ * 这个类主要处理，历年考题的 新增 、 删除 、更新
+ *
  */
 @Controller
 @RequestMapping("/web/hisquestion")
@@ -47,6 +50,10 @@ public class HisQuestionController {
     MessageObject mo;
 
 
+    /**
+     * 进入的开始页
+     * @return
+     */
     @RequestMapping(value="/startpage")
     public String viewfirstpage(){
         return "hisquestion/hisquestion-list";
@@ -87,6 +94,79 @@ public class HisQuestionController {
         list= (List<Choicequestion>) choicequestionRepository.findallobjes(subjectid,moniname);
         return list;
     }
+
+
+    /**
+     * 编辑
+     * @return
+     */
+    @RequestMapping(value="/edit/{questionid}/{subjectName}")
+    public String edit(@PathVariable String questionid,@PathVariable String subjectName,Model model){
+
+        Choicequestion cq = choicequestionRepository.findChoiceQuestion(questionid);
+
+        if(cq!=null ){
+            model.addAttribute("cq",cq);
+            model.addAttribute("subjectid",cq.getSublevel1());
+            model.addAttribute("subjectName",subjectName);
+            model.addAttribute("moniname",cq.getMoniname());
+        }
+
+        ChoicequestionExplain ce = choicequestionExplainRepository.findChoiceQuestionExplain(questionid);
+
+        if(ce!=null){
+            model.addAttribute("ce",ce);
+        }
+
+        return "hisquestion/hisquestion-edit";
+    }
+
+    /**
+     *
+     * @return
+     * 更新数据
+     */
+    @RequestMapping(value="/update" , method = RequestMethod.POST)
+    @ResponseBody
+    public MessageObject update(@RequestParam(required = false) String questionid ,
+                              @RequestParam(required = false) String choicequestionname ,
+                              @RequestParam(required = false) String answera ,
+                              @RequestParam(required = false) String answerb ,
+                              @RequestParam(required = false) String answerc ,
+                              @RequestParam(required = false) String answerd ,
+                              @RequestParam(required = false) String realanswer ,
+                              @RequestParam(required = false) String explain ,
+                              Model model){
+
+        mo = new MessageObject();
+
+        Choicequestion cq =  choicequestionRepository.findChoiceQuestion(questionid);
+        cq.setName(choicequestionname);
+        cq.setAnswera(answera);
+        cq.setAnswerb(answerb);
+        cq.setAnswerc(answerc);
+        cq.setAnswerd(answerd);
+        cq.setRealanswer(realanswer);
+
+        ChoicequestionExplain ce = choicequestionExplainRepository.findChoiceQuestionExplain(questionid);
+        if(ce!=null){
+            ce.setMexplain(explain);
+        }else if(!StringUtil.isEmpty(explain)){
+            ce = new ChoicequestionExplain();
+            ce.setQuestionid(questionid);
+            ce.setMexplain(explain);
+        }
+
+
+        try{
+            mo = choiceQuestionManager.docreate(cq,ce);
+        }catch (Exception ex){
+            mo.setCode(SystemConfig.mess_failed);
+            mo.setMdesc("更新失败！");
+        }
+        return mo;
+    }
+
 
     /**
      * 根据科目编号、年份查询题目
