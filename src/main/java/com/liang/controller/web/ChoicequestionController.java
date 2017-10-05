@@ -87,12 +87,12 @@ public class ChoicequestionController {
         String questionID = IDmanager.createID();
         Choicequestion cq = new Choicequestion();
         cq.setQuestionid(questionID);
-        cq.setName(choicequestionname);
+        cq.setName(choicequestionname.trim());
         cq.setCtime(System.currentTimeMillis());
-        cq.setAnswera(answera);
-        cq.setAnswerb(answerb);
-        cq.setAnswerc(answerc);
-        cq.setAnswerd(answerd);
+        cq.setAnswera(answera.trim());
+        cq.setAnswerb(answerb.trim());
+        cq.setAnswerc(answerc.trim());
+        cq.setAnswerd(answerd.trim());
 //        int mindex = choicequestionRepository.findmaxIndex(sublevel3);
 //        cq.setMindex(mindex+1);
 
@@ -123,7 +123,7 @@ public class ChoicequestionController {
 
         ChoicequestionExplain ce = new ChoicequestionExplain();
 
-        ce.setMexplain(explain);
+        ce.setMexplain(explain.trim());
         ce.setQuestionid(questionID);
 
         try{
